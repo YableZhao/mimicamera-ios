@@ -1,0 +1,49 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xcuserdatad/
+*.xccheckout
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+xcuserdata/
+project.xcworkspace/xcuserdata/
+*.xcscmblueprint
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+.build/
+
+# CocoaPods / Carthage (if ever added)
+Pods/
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# macOS
+.DS_Store
+
+# Secrets
+.env
+.env.local
+*.p8
+*.p12
+*.mobileprovision
+AuthKey_*.p8
+
+# Editor
+.vscode/
+.idea/
+*.swp

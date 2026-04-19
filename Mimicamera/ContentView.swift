@@ -12,6 +12,11 @@ struct ContentView: View {
     @State private var selectedLookID: String?
     @State private var settings = SettingsStore()
     @State private var isEditingBackendURL = false
+    @State private var backendHealth: BackendHealth = .unknown
+
+    enum BackendHealth: Equatable {
+        case unknown, reachable, unreachable
+    }
 
     private let captureWriter = CaptureWriter()
     private var client: MimicameraClient {
@@ -43,6 +48,12 @@ struct ContentView: View {
                     comparing: isComparingOriginal,
                     status: fitStatus
                 )
+                if backendHealth == .unreachable {
+                    BackendOfflineBanner(url: settings.apiBase) {
+                        isEditingBackendURL = true
+                    }
+                    .padding(.top, 6)
+                }
                 Spacer()
                 if pipeline.activeStyleName != nil && fitStatus == ContentView.FitStatus.idle {
                     IntensitySlider(value: Binding(
@@ -82,10 +93,14 @@ struct ContentView: View {
         .task {
             curatedLooks = CuratedLooks.load()
             if let first = curatedLooks.first {
-                try? pipeline.loadBundledLUT(named: first.id)
+                try? pipeline.loadBundledLUT(named: first.id, styleDescription: first.description)
                 selectedLookID = first.id
             }
             await pipeline.start()
+            await pingBackend()
+        }
+        .onChange(of: settings.apiBase) { _, _ in
+            Task { await pingBackend() }
         }
         .sheet(isPresented: $isPickingReference) {
             ReferencePicker(selectionLimit: 5) { datas in
@@ -164,6 +179,18 @@ struct ContentView: View {
     private func showToast(_ text: String?, duration: Double = 2.0) async {
         if let text, !text.isEmpty {
             await showToast(text, duration: duration)
+        }
+    }
+
+    private func pingBackend() async {
+        let url = settings.apiBaseURL.appendingPathComponent("health")
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 2.0
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            backendHealth = ((response as? HTTPURLResponse)?.statusCode == 200) ? .reachable : .unreachable
+        } catch {
+            backendHealth = .unreachable
         }
     }
 
@@ -321,6 +348,29 @@ private struct ToastBanner: View {
                 .padding(.bottom, 140)
         }
         .allowsHitTesting(false)
+    }
+}
+
+private struct BackendOfflineBanner: View {
+    let url: String
+    let onTap: () -> Void
+
+    var body: some View {
+        Button(action: onTap) {
+            HStack(spacing: 8) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundStyle(.orange)
+                Text("Backend offline · \(url)")
+                    .font(.system(.caption2, design: .monospaced))
+                    .foregroundStyle(.white.opacity(0.9))
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 7)
+            .background(.black.opacity(0.5), in: .capsule)
+        }
+        .buttonStyle(.plain)
     }
 }
 

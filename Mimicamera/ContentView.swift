@@ -11,7 +11,9 @@ struct ContentView: View {
     @State private var curatedLooks: [CuratedLook] = []
     @State private var selectedLookID: String?
 
-    private let apiBase: URL = URL(string: "http://127.0.0.1:8000")!
+    // Local-dev default: the Mac's LAN IP so a physical iPhone on the same Wi-Fi can reach the backend.
+    // Run `ipconfig getifaddr en0` on the Mac after switching networks to refresh this.
+    private let apiBase: URL = URL(string: "http://10.43.135.138:8000")!
     private let captureWriter = CaptureWriter()
     private var client: MimicameraClient {
         MimicameraClient(baseURL: apiBase)

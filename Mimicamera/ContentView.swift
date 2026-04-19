@@ -110,6 +110,7 @@ struct ContentView: View {
         do {
             try pipeline.loadBundledLUT(named: look.id)
             selectedLookID = look.id
+            Haptics.lightImpact()
         } catch {
             fitStatus = .failed("Could not load \(look.name)")
             Task {
@@ -122,11 +123,14 @@ struct ContentView: View {
     private func handleShutter() async {
         guard let original = pipeline.latestOriginalImage,
               let styled = pipeline.latestCIImage else { return }
+        Haptics.rigidImpact()
         await flash()
         do {
             try await captureWriter.saveDualCapture(original: original, styled: styled)
+            Haptics.success()
             await showToast("Saved original + styled to Photos")
         } catch {
+            Haptics.error()
             await showToast("Save failed: \(error)")
         }
     }
@@ -197,6 +201,7 @@ private struct TopBar: View {
 
 private struct IntensitySlider: View {
     @Binding var value: Double
+    @State private var lastNotchedValue: Double = 1.0
 
     var body: some View {
         HStack(spacing: 12) {
@@ -205,6 +210,16 @@ private struct IntensitySlider: View {
                 .foregroundStyle(.white.opacity(0.55))
             Slider(value: $value, in: 0...1)
                 .tint(Color(red: 0.82, green: 0.29, blue: 0.23))
+                .onChange(of: value) { _, newValue in
+                    // Haptic tick when crossing the unity point.
+                    let crossedUnity =
+                        (lastNotchedValue < 1.0 && newValue >= 1.0) ||
+                        (lastNotchedValue >= 1.0 && newValue < 1.0)
+                    if crossedUnity {
+                        Haptics.lightImpact()
+                    }
+                    lastNotchedValue = newValue
+                }
             Text("1")
                 .font(.system(.caption2, design: .monospaced))
                 .foregroundStyle(.white.opacity(0.55))

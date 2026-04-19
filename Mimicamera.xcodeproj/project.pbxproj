@@ -10,6 +10,7 @@
 		022A3DD0127F90CAF19DD3B0 /* portrait.cube in Resources */ = {isa = PBXBuildFile; fileRef = F11336D02EB26860E82987BA /* portrait.cube */; };
 		17F99F08AC9AA27192CA5859 /* CaptureWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA268BE9CC36C44691EEE33B /* CaptureWriter.swift */; };
 		1DBB9F3B05AFA73653B85FED /* ReferencePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345FE1F933FCF9F4671FDE36 /* ReferencePicker.swift */; };
+		2FB4B87265053B4AABFBCEFB /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBFBFFCEA87B2EB05B83D9E /* Haptics.swift */; };
 		3074A05F17934739691F07EB /* CuratedLooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11E35E2ADBC784620911FC0 /* CuratedLooks.swift */; };
 		32B2E474E77FCB6C6CA67DA3 /* ReferenceStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C3288BFA2C2AC85DD2D70 /* ReferenceStrip.swift */; };
 		4E3046565949DCE395DD2769 /* MimicameraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */; };
@@ -48,6 +49,7 @@
 		957BA1630AD1E4ADBBD12249 /* film.cube */ = {isa = PBXFileReference; path = film.cube; sourceTree = "<group>"; };
 		A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimicameraApp.swift; sourceTree = "<group>"; };
 		AA268BE9CC36C44691EEE33B /* CaptureWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureWriter.swift; sourceTree = "<group>"; };
+		ABBFBFFCEA87B2EB05B83D9E /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		BC65B1B80DB718FEEBD77398 /* overcast.cube */ = {isa = PBXFileReference; path = overcast.cube; sourceTree = "<group>"; };
 		C102B9712FD73A462F24CF28 /* noir.cube */ = {isa = PBXFileReference; path = noir.cube; sourceTree = "<group>"; };
 		CA956DFC94B51213F1E41BEC /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				F6BD4BC5E5CC15209EED91A7 /* Reference */,
 				4916F71B5F966D970E9F7E8B /* Resources */,
 				89094EF65A12DE479F411FE6 /* ContentView.swift */,
+				ABBFBFFCEA87B2EB05B83D9E /* Haptics.swift */,
 				A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */,
 			);
 			path = Mimicamera;
@@ -241,6 +244,7 @@
 				D835333DA8E7FA55C0D1F800 /* ContentView.swift in Sources */,
 				FF0D2D97C21E8F0B064D97F7 /* CubeLUT.swift in Sources */,
 				3074A05F17934739691F07EB /* CuratedLooks.swift in Sources */,
+				2FB4B87265053B4AABFBCEFB /* Haptics.swift in Sources */,
 				CF42687D6FAC9ED9359777F7 /* LUTPipeline.swift in Sources */,
 				4E3046565949DCE395DD2769 /* MimicameraApp.swift in Sources */,
 				80B796DFEA15D7137274A204 /* MimicameraClient.swift in Sources */,

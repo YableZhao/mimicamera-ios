@@ -1,0 +1,34 @@
+{
+  "looks": [
+    {
+      "id": "golden-hour",
+      "name": "Golden Hour",
+      "description": "Warm highlights, honey mids, cocoa shadows"
+    },
+    {
+      "id": "overcast",
+      "name": "Overcast",
+      "description": "Cool highlights, desaturated mids, slate shadows"
+    },
+    {
+      "id": "noir",
+      "name": "Noir",
+      "description": "Crushed blacks, low contrast, whisper of blue"
+    },
+    {
+      "id": "pastel",
+      "name": "Pastel",
+      "description": "Lifted blacks, soft saturation, airy"
+    },
+    {
+      "id": "film",
+      "name": "Film",
+      "description": "Faded cyan shadows, warm highlights, teal-orange"
+    },
+    {
+      "id": "portrait",
+      "name": "Portrait",
+      "description": "Skin-tone forward, clean highlights, green shadows"
+    }
+  ]
+}

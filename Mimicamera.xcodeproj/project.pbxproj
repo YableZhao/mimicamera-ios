@@ -7,29 +7,55 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E6698720D582C2FF748547 /* demo-warm.cube in Resources */ = {isa = PBXBuildFile; fileRef = A4636928BA6D3DE390289E09 /* demo-warm.cube */; };
+		022A3DD0127F90CAF19DD3B0 /* portrait.cube in Resources */ = {isa = PBXBuildFile; fileRef = F11336D02EB26860E82987BA /* portrait.cube */; };
 		17F99F08AC9AA27192CA5859 /* CaptureWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA268BE9CC36C44691EEE33B /* CaptureWriter.swift */; };
 		1DBB9F3B05AFA73653B85FED /* ReferencePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345FE1F933FCF9F4671FDE36 /* ReferencePicker.swift */; };
+		3074A05F17934739691F07EB /* CuratedLooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11E35E2ADBC784620911FC0 /* CuratedLooks.swift */; };
+		32B2E474E77FCB6C6CA67DA3 /* ReferenceStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C3288BFA2C2AC85DD2D70 /* ReferenceStrip.swift */; };
 		4E3046565949DCE395DD2769 /* MimicameraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */; };
 		80B796DFEA15D7137274A204 /* MimicameraClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9489D6013835D1BDC295B74D /* MimicameraClient.swift */; };
-		8E0298B55A6F949CBFC4786D /* demo-cool.cube in Resources */ = {isa = PBXBuildFile; fileRef = CA025815EF36831134D276DD /* demo-cool.cube */; };
+		8B24AEE470655E063FEA8B2E /* film.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DF0E078F3AFBEFE549719A10 /* film.jpg */; };
+		918807E9C110FC5D1D38170A /* noir.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1211B1DCE73286E806B5ABDB /* noir.jpg */; };
+		9B303ED1654AD22DF9E4AB91 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = CA956DFC94B51213F1E41BEC /* manifest.json */; };
+		A0A7430238D62738F8877213 /* overcast.cube in Resources */ = {isa = PBXBuildFile; fileRef = BC65B1B80DB718FEEBD77398 /* overcast.cube */; };
+		A1D97EF9993CB864084FB209 /* golden-hour.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 432017891FE327CFFE492594 /* golden-hour.jpg */; };
+		A6F3A6AEA4B130F4344CF9C0 /* golden-hour.cube in Resources */ = {isa = PBXBuildFile; fileRef = 14791145A7ACE85D8A824AED /* golden-hour.cube */; };
+		AB649BEF741C4DF12AF3417E /* pastel.cube in Resources */ = {isa = PBXBuildFile; fileRef = F6BB93903C7EA90A7300237A /* pastel.cube */; };
 		B3E36DF479C20267840F6152 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6A0AC933970C94289B726D /* CameraView.swift */; };
+		B70550D9CABD285912E6BB01 /* pastel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 651D4513790BAAE46D955123 /* pastel.jpg */; };
+		CEC87ACC326EFF77C46DD63C /* noir.cube in Resources */ = {isa = PBXBuildFile; fileRef = C102B9712FD73A462F24CF28 /* noir.cube */; };
 		CF42687D6FAC9ED9359777F7 /* LUTPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F3E08D70E23EA02E57F23 /* LUTPipeline.swift */; };
 		D835333DA8E7FA55C0D1F800 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89094EF65A12DE479F411FE6 /* ContentView.swift */; };
+		DA27F926A623DE77F370D07B /* portrait.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 24AB87A34A6691EB3147C676 /* portrait.jpg */; };
+		E2877DC875CF9BE056218495 /* overcast.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5FBC2DCED413F5F38C64E06F /* overcast.jpg */; };
+		E643A74DD59D3B1BDBF7C2CA /* film.cube in Resources */ = {isa = PBXBuildFile; fileRef = 957BA1630AD1E4ADBBD12249 /* film.cube */; };
 		FF0D2D97C21E8F0B064D97F7 /* CubeLUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CB84865F9533A29CB6C8F6 /* CubeLUT.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		04CB84865F9533A29CB6C8F6 /* CubeLUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeLUT.swift; sourceTree = "<group>"; };
+		1211B1DCE73286E806B5ABDB /* noir.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noir.jpg; sourceTree = "<group>"; };
+		14791145A7ACE85D8A824AED /* golden-hour.cube */ = {isa = PBXFileReference; path = "golden-hour.cube"; sourceTree = "<group>"; };
 		227157EC475089C6137053D8 /* Mimicamera.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Mimicamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		24AB87A34A6691EB3147C676 /* portrait.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = portrait.jpg; sourceTree = "<group>"; };
 		345FE1F933FCF9F4671FDE36 /* ReferencePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferencePicker.swift; sourceTree = "<group>"; };
+		432017891FE327CFFE492594 /* golden-hour.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "golden-hour.jpg"; sourceTree = "<group>"; };
+		5FBC2DCED413F5F38C64E06F /* overcast.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = overcast.jpg; sourceTree = "<group>"; };
+		651D4513790BAAE46D955123 /* pastel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pastel.jpg; sourceTree = "<group>"; };
 		819F3E08D70E23EA02E57F23 /* LUTPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LUTPipeline.swift; sourceTree = "<group>"; };
 		89094EF65A12DE479F411FE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9489D6013835D1BDC295B74D /* MimicameraClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimicameraClient.swift; sourceTree = "<group>"; };
-		A4636928BA6D3DE390289E09 /* demo-warm.cube */ = {isa = PBXFileReference; path = "demo-warm.cube"; sourceTree = "<group>"; };
+		957BA1630AD1E4ADBBD12249 /* film.cube */ = {isa = PBXFileReference; path = film.cube; sourceTree = "<group>"; };
 		A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimicameraApp.swift; sourceTree = "<group>"; };
 		AA268BE9CC36C44691EEE33B /* CaptureWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureWriter.swift; sourceTree = "<group>"; };
-		CA025815EF36831134D276DD /* demo-cool.cube */ = {isa = PBXFileReference; path = "demo-cool.cube"; sourceTree = "<group>"; };
+		BC65B1B80DB718FEEBD77398 /* overcast.cube */ = {isa = PBXFileReference; path = overcast.cube; sourceTree = "<group>"; };
+		C102B9712FD73A462F24CF28 /* noir.cube */ = {isa = PBXFileReference; path = noir.cube; sourceTree = "<group>"; };
+		CA956DFC94B51213F1E41BEC /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+		CA9C3288BFA2C2AC85DD2D70 /* ReferenceStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceStrip.swift; sourceTree = "<group>"; };
+		DF0E078F3AFBEFE549719A10 /* film.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = film.jpg; sourceTree = "<group>"; };
+		E11E35E2ADBC784620911FC0 /* CuratedLooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuratedLooks.swift; sourceTree = "<group>"; };
+		F11336D02EB26860E82987BA /* portrait.cube */ = {isa = PBXFileReference; path = portrait.cube; sourceTree = "<group>"; };
+		F6BB93903C7EA90A7300237A /* pastel.cube */ = {isa = PBXFileReference; path = pastel.cube; sourceTree = "<group>"; };
 		FD6A0AC933970C94289B726D /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,7 +127,9 @@
 		F6BD4BC5E5CC15209EED91A7 /* Reference */ = {
 			isa = PBXGroup;
 			children = (
+				E11E35E2ADBC784620911FC0 /* CuratedLooks.swift */,
 				345FE1F933FCF9F4671FDE36 /* ReferencePicker.swift */,
+				CA9C3288BFA2C2AC85DD2D70 /* ReferenceStrip.swift */,
 			);
 			path = Reference;
 			sourceTree = "<group>";
@@ -109,8 +137,19 @@
 		FFF9E84FD987E527C8795E37 /* CuratedLUTs */ = {
 			isa = PBXGroup;
 			children = (
-				CA025815EF36831134D276DD /* demo-cool.cube */,
-				A4636928BA6D3DE390289E09 /* demo-warm.cube */,
+				957BA1630AD1E4ADBBD12249 /* film.cube */,
+				DF0E078F3AFBEFE549719A10 /* film.jpg */,
+				14791145A7ACE85D8A824AED /* golden-hour.cube */,
+				432017891FE327CFFE492594 /* golden-hour.jpg */,
+				CA956DFC94B51213F1E41BEC /* manifest.json */,
+				C102B9712FD73A462F24CF28 /* noir.cube */,
+				1211B1DCE73286E806B5ABDB /* noir.jpg */,
+				BC65B1B80DB718FEEBD77398 /* overcast.cube */,
+				5FBC2DCED413F5F38C64E06F /* overcast.jpg */,
+				F6BB93903C7EA90A7300237A /* pastel.cube */,
+				651D4513790BAAE46D955123 /* pastel.jpg */,
+				F11336D02EB26860E82987BA /* portrait.cube */,
+				24AB87A34A6691EB3147C676 /* portrait.jpg */,
 			);
 			path = CuratedLUTs;
 			sourceTree = "<group>";
@@ -174,8 +213,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E0298B55A6F949CBFC4786D /* demo-cool.cube in Resources */,
-				00E6698720D582C2FF748547 /* demo-warm.cube in Resources */,
+				E643A74DD59D3B1BDBF7C2CA /* film.cube in Resources */,
+				8B24AEE470655E063FEA8B2E /* film.jpg in Resources */,
+				A6F3A6AEA4B130F4344CF9C0 /* golden-hour.cube in Resources */,
+				A1D97EF9993CB864084FB209 /* golden-hour.jpg in Resources */,
+				9B303ED1654AD22DF9E4AB91 /* manifest.json in Resources */,
+				CEC87ACC326EFF77C46DD63C /* noir.cube in Resources */,
+				918807E9C110FC5D1D38170A /* noir.jpg in Resources */,
+				A0A7430238D62738F8877213 /* overcast.cube in Resources */,
+				E2877DC875CF9BE056218495 /* overcast.jpg in Resources */,
+				AB649BEF741C4DF12AF3417E /* pastel.cube in Resources */,
+				B70550D9CABD285912E6BB01 /* pastel.jpg in Resources */,
+				022A3DD0127F90CAF19DD3B0 /* portrait.cube in Resources */,
+				DA27F926A623DE77F370D07B /* portrait.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,10 +240,12 @@
 				17F99F08AC9AA27192CA5859 /* CaptureWriter.swift in Sources */,
 				D835333DA8E7FA55C0D1F800 /* ContentView.swift in Sources */,
 				FF0D2D97C21E8F0B064D97F7 /* CubeLUT.swift in Sources */,
+				3074A05F17934739691F07EB /* CuratedLooks.swift in Sources */,
 				CF42687D6FAC9ED9359777F7 /* LUTPipeline.swift in Sources */,
 				4E3046565949DCE395DD2769 /* MimicameraApp.swift in Sources */,
 				80B796DFEA15D7137274A204 /* MimicameraClient.swift in Sources */,
 				1DBB9F3B05AFA73653B85FED /* ReferencePicker.swift in Sources */,
+				32B2E474E77FCB6C6CA67DA3 /* ReferenceStrip.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

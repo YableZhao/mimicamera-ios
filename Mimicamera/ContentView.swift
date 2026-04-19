@@ -8,6 +8,8 @@ struct ContentView: View {
     @State private var fitStatus: FitStatus = .idle
     @State private var isFlashing = false
     @State private var captureToast: String?
+    @State private var curatedLooks: [CuratedLook] = []
+    @State private var selectedLookID: String?
 
     private let apiBase: URL = URL(string: "http://127.0.0.1:8000")!
     private let captureWriter = CaptureWriter()
@@ -45,8 +47,16 @@ struct ContentView: View {
                         get: { Double(pipeline.intensity) },
                         set: { pipeline.intensity = Float($0) }
                     ))
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 12)
                     .transition(.opacity)
+                }
+                if !curatedLooks.isEmpty {
+                    ReferenceStrip(
+                        looks: curatedLooks,
+                        selectedID: selectedLookID,
+                        onSelect: selectCuratedLook
+                    )
+                    .padding(.bottom, 8)
                 }
                 ShutterRow(
                     onPickReference: { isPickingReference = true },
@@ -68,7 +78,11 @@ struct ContentView: View {
                 .allowsHitTesting(false)
         }
         .task {
-            try? pipeline.loadBundledLUT(named: "demo-warm")
+            curatedLooks = CuratedLooks.load()
+            if let first = curatedLooks.first {
+                try? pipeline.loadBundledLUT(named: first.id)
+                selectedLookID = first.id
+            }
             await pipeline.start()
         }
         .sheet(isPresented: $isPickingReference) {
@@ -89,6 +103,19 @@ struct ContentView: View {
         } else if !isPressing && isComparingOriginal {
             pipeline.intensity = intensityBeforeCompare
             isComparingOriginal = false
+        }
+    }
+
+    private func selectCuratedLook(_ look: CuratedLook) {
+        do {
+            try pipeline.loadBundledLUT(named: look.id)
+            selectedLookID = look.id
+        } catch {
+            fitStatus = .failed("Could not load \(look.name)")
+            Task {
+                try? await Task.sleep(for: .seconds(2))
+                fitStatus = .idle
+            }
         }
     }
 

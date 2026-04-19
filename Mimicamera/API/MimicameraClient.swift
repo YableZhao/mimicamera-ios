@@ -97,6 +97,7 @@ actor MimicameraClient {
     enum Mode: String, Sendable {
         case idt
         case hist
+        case chroma
     }
 }
 

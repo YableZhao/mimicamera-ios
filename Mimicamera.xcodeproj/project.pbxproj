@@ -13,6 +13,7 @@
 		2FB4B87265053B4AABFBCEFB /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBFBFFCEA87B2EB05B83D9E /* Haptics.swift */; };
 		3074A05F17934739691F07EB /* CuratedLooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11E35E2ADBC784620911FC0 /* CuratedLooks.swift */; };
 		32B2E474E77FCB6C6CA67DA3 /* ReferenceStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C3288BFA2C2AC85DD2D70 /* ReferenceStrip.swift */; };
+		373529569551F4EBD6AFEFA0 /* CubeLUTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0E28D8732A7B3B44F45656 /* CubeLUTTests.swift */; };
 		4E3046565949DCE395DD2769 /* MimicameraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */; };
 		80B796DFEA15D7137274A204 /* MimicameraClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9489D6013835D1BDC295B74D /* MimicameraClient.swift */; };
 		8B24AEE470655E063FEA8B2E /* film.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DF0E078F3AFBEFE549719A10 /* film.jpg */; };
@@ -33,10 +34,21 @@
 		FF0D2D97C21E8F0B064D97F7 /* CubeLUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CB84865F9533A29CB6C8F6 /* CubeLUT.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F6ABAF79E57BB5FF95EA5652 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EBD4F27BF1DE11B051F4B715 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F18D65C3A60E9AEB869F247D;
+			remoteInfo = Mimicamera;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		04CB84865F9533A29CB6C8F6 /* CubeLUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeLUT.swift; sourceTree = "<group>"; };
 		1211B1DCE73286E806B5ABDB /* noir.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noir.jpg; sourceTree = "<group>"; };
 		14791145A7ACE85D8A824AED /* golden-hour.cube */ = {isa = PBXFileReference; path = "golden-hour.cube"; sourceTree = "<group>"; };
+		1B0E28D8732A7B3B44F45656 /* CubeLUTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeLUTTests.swift; sourceTree = "<group>"; };
 		227157EC475089C6137053D8 /* Mimicamera.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Mimicamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24AB87A34A6691EB3147C676 /* portrait.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = portrait.jpg; sourceTree = "<group>"; };
 		345FE1F933FCF9F4671FDE36 /* ReferencePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferencePicker.swift; sourceTree = "<group>"; };
@@ -44,6 +56,7 @@
 		5FBC2DCED413F5F38C64E06F /* overcast.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = overcast.jpg; sourceTree = "<group>"; };
 		651D4513790BAAE46D955123 /* pastel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pastel.jpg; sourceTree = "<group>"; };
 		819F3E08D70E23EA02E57F23 /* LUTPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LUTPipeline.swift; sourceTree = "<group>"; };
+		85294E4D58E94F61E63E4CD5 /* MimicameraTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MimicameraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		89094EF65A12DE479F411FE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9489D6013835D1BDC295B74D /* MimicameraClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimicameraClient.swift; sourceTree = "<group>"; };
 		957BA1630AD1E4ADBBD12249 /* film.cube */ = {isa = PBXFileReference; path = film.cube; sourceTree = "<group>"; };
@@ -66,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				227157EC475089C6137053D8 /* Mimicamera.app */,
+				85294E4D58E94F61E63E4CD5 /* MimicameraTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,6 +107,14 @@
 			path = Mimicamera;
 			sourceTree = "<group>";
 		};
+		74C212FBDFEB1E5EE217D970 /* MimicameraTests */ = {
+			isa = PBXGroup;
+			children = (
+				1B0E28D8732A7B3B44F45656 /* CubeLUTTests.swift */,
+			);
+			path = MimicameraTests;
+			sourceTree = "<group>";
+		};
 		862A5E5E00EB71B92EA3FF0E /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				5439D4E762C50826A3ED40FA /* Mimicamera */,
+				74C212FBDFEB1E5EE217D970 /* MimicameraTests */,
 				2DBEFEDFDE1D7A5A821EC8E9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -160,6 +183,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E319EB8A5CAE4838D7005454 /* MimicameraTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 95BF0036FCF311DDE46EAF3C /* Build configuration list for PBXNativeTarget "MimicameraTests" */;
+			buildPhases = (
+				603397DA20D4952F4CACEFE9 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CACF1EA30179BC527B3CCC30 /* PBXTargetDependency */,
+			);
+			name = MimicameraTests;
+			packageProductDependencies = (
+			);
+			productName = MimicameraTests;
+			productReference = 85294E4D58E94F61E63E4CD5 /* MimicameraTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F18D65C3A60E9AEB869F247D /* Mimicamera */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6A8B3F2156B1B84DA9CAECC7 /* Build configuration list for PBXNativeTarget "Mimicamera" */;
@@ -207,6 +248,7 @@
 			projectRoot = "";
 			targets = (
 				F18D65C3A60E9AEB869F247D /* Mimicamera */,
+				E319EB8A5CAE4838D7005454 /* MimicameraTests */,
 			);
 		};
 /* End PBXProject section */
@@ -235,6 +277,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		603397DA20D4952F4CACEFE9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				373529569551F4EBD6AFEFA0 /* CubeLUTTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F655C48F5A63FBFC2AED4A15 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -254,6 +304,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CACF1EA30179BC527B3CCC30 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F18D65C3A60E9AEB869F247D /* Mimicamera */;
+			targetProxy = F6ABAF79E57BB5FF95EA5652 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		53E006E8B7DC2BB91A0BC118 /* Release */ = {
@@ -314,6 +372,23 @@
 			};
 			name = Release;
 		};
+		57384C233F986FDE2ABDECD0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yablezhao.MimicameraTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mimicamera.app/Mimicamera";
+			};
+			name = Release;
+		};
 		5A1D4097F7FFC51B6C136508 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -331,6 +406,23 @@
 				PRODUCT_NAME = Mimicamera;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		6CF3481F82C09F0A814AAEA3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yablezhao.MimicameraTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mimicamera.app/Mimicamera";
 			};
 			name = Debug;
 		};
@@ -436,6 +528,15 @@
 			buildConfigurations = (
 				5A1D4097F7FFC51B6C136508 /* Debug */,
 				AEAFA3EE55C3CB994B3FA74F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		95BF0036FCF311DDE46EAF3C /* Build configuration list for PBXNativeTarget "MimicameraTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CF3481F82C09F0A814AAEA3 /* Debug */,
+				57384C233F986FDE2ABDECD0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

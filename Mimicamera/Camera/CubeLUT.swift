@@ -49,9 +49,10 @@ enum CubeLUT {
         }
 
         guard let size else { throw CubeLUTError.missingSizeHeader }
-        let expected = size * size * size * 4
-        guard values.count == expected else {
-            throw CubeLUTError.wrongEntryCount(expected: expected, got: values.count)
+        let expectedCells = size * size * size
+        let actualCells = values.count / 4
+        guard actualCells == expectedCells else {
+            throw CubeLUTError.wrongEntryCount(expected: expectedCells, got: actualCells)
         }
 
         let data = values.withUnsafeBufferPointer { Data(buffer: $0) }

@@ -32,3 +32,26 @@ targets:
         CODE_SIGN_STYLE: Automatic
         ENABLE_USER_SCRIPT_SANDBOXING: NO
         GENERATE_INFOPLIST_FILE: NO
+
+  MimicameraTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: MimicameraTests
+    dependencies:
+      - target: Mimicamera
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.yablezhao.MimicameraTests
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  Mimicamera:
+    build:
+      targets:
+        Mimicamera: all
+        MimicameraTests: [test]
+    test:
+      targets:
+        - MimicameraTests
+      gatherCoverageData: true

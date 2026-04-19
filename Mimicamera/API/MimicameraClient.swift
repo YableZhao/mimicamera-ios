@@ -16,6 +16,20 @@ struct FitLUTResponse: Decodable {
     }
 }
 
+struct CurateResponse: Decodable {
+    let selectedIndices: [Int]
+    let styleName: String
+    let styleDescription: String
+    let timingMs: Int
+
+    enum CodingKeys: String, CodingKey {
+        case selectedIndices = "selected_indices"
+        case styleName = "style_name"
+        case styleDescription = "style_description"
+        case timingMs = "timing_ms"
+    }
+}
+
 enum MimicameraClientError: Error {
     case badStatus(code: Int, body: String)
     case decodingFailed(Error)
@@ -38,6 +52,57 @@ actor MimicameraClient {
         let styleDescription: String
         let timingMs: Int
         let mode: String
+    }
+
+    struct CurateResult {
+        let selectedIndices: [Int]
+        let styleName: String
+        let styleDescription: String
+        let timingMs: Int
+    }
+
+    /// Ask Claude (server-side) to pick the most stylistically representative
+    /// subset of the supplied references and name the underlying style.
+    /// Falls back to a deterministic "first N" selection when `ANTHROPIC_API_KEY`
+    /// is unset on the backend.
+    func curate(references: [Data]) async throws -> CurateResult {
+        let url = baseURL.appendingPathComponent("curate")
+        let boundary = "MimicameraBoundary-\(UUID().uuidString)"
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var body = Data()
+        for (index, jpeg) in references.enumerated() {
+            body.append("--\(boundary)\r\n")
+            body.append(#"Content-Disposition: form-data; name="references"; filename="ref-\#(index).jpg""# + "\r\n")
+            body.append("Content-Type: image/jpeg\r\n\r\n")
+            body.append(jpeg)
+            body.append("\r\n")
+        }
+        body.append("--\(boundary)--\r\n")
+        request.httpBody = body
+
+        let (data, response) = try await session.data(for: request)
+        guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+            let code = (response as? HTTPURLResponse)?.statusCode ?? -1
+            throw MimicameraClientError.badStatus(
+                code: code,
+                body: String(data: data, encoding: .utf8) ?? "<binary>"
+            )
+        }
+        let decoded: CurateResponse
+        do {
+            decoded = try JSONDecoder().decode(CurateResponse.self, from: data)
+        } catch {
+            throw MimicameraClientError.decodingFailed(error)
+        }
+        return CurateResult(
+            selectedIndices: decoded.selectedIndices,
+            styleName: decoded.styleName,
+            styleDescription: decoded.styleDescription,
+            timingMs: decoded.timingMs
+        )
     }
 
     /// Fits a LUT from one or more reference JPEGs. Default mode is IDT; pass `.hist`

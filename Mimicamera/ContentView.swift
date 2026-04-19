@@ -21,6 +21,7 @@ struct ContentView: View {
 
     enum FitStatus: Equatable {
         case idle
+        case curating
         case fitting
         case failed(String)
     }
@@ -44,7 +45,7 @@ struct ContentView: View {
                     status: fitStatus
                 )
                 Spacer()
-                if pipeline.activeStyleName != nil && fitStatus == .idle {
+                if pipeline.activeStyleName != nil && fitStatus == ContentView.FitStatus.idle {
                     IntensitySlider(value: Binding(
                         get: { Double(pipeline.intensity) },
                         set: { pipeline.intensity = Float($0) }
@@ -88,10 +89,10 @@ struct ContentView: View {
             await pipeline.start()
         }
         .sheet(isPresented: $isPickingReference) {
-            ReferencePicker(selectionLimit: 1) { datas in
+            ReferencePicker(selectionLimit: 5) { datas in
                 isPickingReference = false
-                guard let first = datas.first else { return }
-                Task { await fitAndApply(reference: first) }
+                guard !datas.isEmpty else { return }
+                Task { await curateAndFit(references: datas) }
             }
             .ignoresSafeArea()
         }
@@ -151,11 +152,29 @@ struct ContentView: View {
         captureToast = nil
     }
 
-    private func fitAndApply(reference: Data) async {
-        fitStatus = .fitting
+    private func curateAndFit(references: [Data]) async {
         do {
-            let result = try await client.fitLUT(references: [reference])
-            try pipeline.applyFittedCube(cubeText: result.cubeText, styleName: result.styleName)
+            var subset = references
+            var curatedName: String?
+
+            if references.count > 1 {
+                fitStatus = .curating
+                let curation = try await client.curate(references: references)
+                let clamped = curation.selectedIndices.filter { (0..<references.count).contains($0) }
+                let picked = clamped.isEmpty
+                    ? Array(0..<min(references.count, 5))
+                    : clamped
+                subset = picked.map { references[$0] }
+                curatedName = curation.styleName
+            }
+
+            fitStatus = .fitting
+            let result = try await client.fitLUT(references: subset)
+            selectedLookID = nil  // user-supplied look, not a bundled one
+            try pipeline.applyFittedCube(
+                cubeText: result.cubeText,
+                styleName: curatedName ?? (references.count > 1 ? "Your Style" : result.styleName)
+            )
             fitStatus = .idle
         } catch {
             fitStatus = .failed(String(describing: error))
@@ -194,6 +213,7 @@ private struct TopBar: View {
     private var label: String {
         if comparing { return "Original" }
         switch status {
+        case .curating: return "Reading the style…"
         case .fitting: return "Fitting colours…"
         case .failed(let msg): return "Fit failed: \(msg.prefix(40))…"
         case .idle: return styleName ?? "Pick a look"

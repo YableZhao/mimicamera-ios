@@ -10,13 +10,12 @@ struct ContentView: View {
     @State private var captureToast: String?
     @State private var curatedLooks: [CuratedLook] = []
     @State private var selectedLookID: String?
+    @State private var settings = SettingsStore()
+    @State private var isEditingBackendURL = false
 
-    // Local-dev default: the Mac's LAN IP so a physical iPhone on the same Wi-Fi can reach the backend.
-    // Run `ipconfig getifaddr en0` on the Mac after switching networks to refresh this.
-    private let apiBase: URL = URL(string: "http://10.43.135.138:8000")!
     private let captureWriter = CaptureWriter()
     private var client: MimicameraClient {
-        MimicameraClient(baseURL: apiBase)
+        MimicameraClient(baseURL: settings.apiBaseURL)
     }
 
     enum FitStatus: Equatable {
@@ -96,6 +95,11 @@ struct ContentView: View {
             }
             .ignoresSafeArea()
         }
+        .sheet(isPresented: $isEditingBackendURL) {
+            BackendURLEditor(settings: settings)
+                .presentationDetents([.fraction(0.32)])
+        }
+        .onShake { isEditingBackendURL = true }
     }
 
     private func handleCompareGesture(isPressing: Bool) {
@@ -317,5 +321,39 @@ private struct ToastBanner: View {
                 .padding(.bottom, 140)
         }
         .allowsHitTesting(false)
+    }
+}
+
+private struct BackendURLEditor: View {
+    @Bindable var settings: SettingsStore
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("Backend base URL") {
+                    TextField("http://host:port", text: $settings.apiBase)
+                        .keyboardType(.URL)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                        .font(.system(.body, design: .monospaced))
+                }
+                Section {
+                    Button("Reset to default") {
+                        settings.apiBase = SettingsStore.defaultAPIBase
+                    }
+                    .foregroundStyle(.secondary)
+                } footer: {
+                    Text("Shake the device to reopen this panel. The default assumes the backend runs on the Mac that shipped this build; update after switching networks.")
+                }
+            }
+            .navigationTitle("Backend")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }
+                }
+            }
+        }
     }
 }

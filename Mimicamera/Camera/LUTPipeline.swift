@@ -96,6 +96,19 @@ final class LUTPipeline: NSObject {
         rebuildBlendedFilter()
     }
 
+    /// Load a `.cube` file shipped inside the app bundle (e.g. one of the
+    /// curated looks under `Resources/CuratedLUTs/`). The cube's TITLE line
+    /// becomes the style chip label when `styleName` is not overridden.
+    func loadBundledLUT(named name: String, subdirectory: String = "CuratedLUTs") throws {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "cube", subdirectory: subdirectory)
+                ?? Bundle.main.url(forResource: name, withExtension: "cube") else {
+            throw CubeLUTError.parseFailure(line: 0)
+        }
+        let text = try String(contentsOf: url, encoding: .utf8)
+        let title = CubeLUT.title(in: text) ?? name
+        try applyFittedCube(cubeText: text, styleName: title)
+    }
+
     /// Clear the LUT and fall back to identity (pass-through) rendering.
     func clearLUT() {
         fittedCubeData = nil

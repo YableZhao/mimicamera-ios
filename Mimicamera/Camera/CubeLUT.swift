@@ -66,6 +66,20 @@ enum CubeLUT {
         return filter
     }
 
+    /// Parses the `TITLE "..."` line out of a `.cube` file, if present.
+    static func title(in text: String) -> String? {
+        for raw in text.split(whereSeparator: { $0.isNewline }) {
+            let line = raw.trimmingCharacters(in: .whitespaces)
+            guard line.uppercased().hasPrefix("TITLE") else { continue }
+            if let start = line.firstIndex(of: "\""),
+               let end = line.lastIndex(of: "\""),
+               start < end {
+                return String(line[line.index(after: start)..<end])
+            }
+        }
+        return nil
+    }
+
     /// Linearly interpolates two equal-sized LUT data buffers in LUT space.
     /// Used for the intensity slider: `blend(identity, fitted, alpha)`.
     static func blend(identity: Data, fitted: Data, alpha: Float) -> Data {

@@ -16,6 +16,7 @@ struct ContentView: View {
             .padding(.vertical, 24)
         }
         .task {
+            try? pipeline.loadBundledLUT(named: "demo-warm")
             await pipeline.start()
         }
     }

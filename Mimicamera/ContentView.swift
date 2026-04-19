@@ -111,9 +111,10 @@ struct ContentView: View {
 
     private func selectCuratedLook(_ look: CuratedLook) {
         do {
-            try pipeline.loadBundledLUT(named: look.id)
+            try pipeline.loadBundledLUT(named: look.id, styleDescription: look.description)
             selectedLookID = look.id
             Haptics.lightImpact()
+            Task { await showToast(look.description, duration: 2.2) }
         } catch {
             fitStatus = .failed("Could not load \(look.name)")
             Task {
@@ -146,16 +147,27 @@ struct ContentView: View {
     }
 
     @MainActor
-    private func showToast(_ text: String) async {
+    private func showToast(_ text: String, duration: Double = 2.0) async {
         captureToast = text
-        try? await Task.sleep(for: .seconds(2))
-        captureToast = nil
+        try? await Task.sleep(for: .seconds(duration))
+        // Only clear if no newer toast replaced us.
+        if captureToast == text {
+            captureToast = nil
+        }
+    }
+
+    @MainActor
+    private func showToast(_ text: String?, duration: Double = 2.0) async {
+        if let text, !text.isEmpty {
+            await showToast(text, duration: duration)
+        }
     }
 
     private func curateAndFit(references: [Data]) async {
         do {
             var subset = references
             var curatedName: String?
+            var curatedDescription: String?
 
             if references.count > 1 {
                 fitStatus = .curating
@@ -166,16 +178,22 @@ struct ContentView: View {
                     : clamped
                 subset = picked.map { references[$0] }
                 curatedName = curation.styleName
+                curatedDescription = curation.styleDescription
             }
 
             fitStatus = .fitting
             let result = try await client.fitLUT(references: subset)
             selectedLookID = nil  // user-supplied look, not a bundled one
+            let description = references.count > 1 ? curatedDescription : result.styleDescription
             try pipeline.applyFittedCube(
                 cubeText: result.cubeText,
-                styleName: curatedName ?? (references.count > 1 ? "Your Style" : result.styleName)
+                styleName: curatedName ?? (references.count > 1 ? "Your Style" : result.styleName),
+                styleDescription: description
             )
             fitStatus = .idle
+            if let desc = description, !desc.isEmpty {
+                Task { await showToast(desc, duration: 3.0) }
+            }
         } catch {
             fitStatus = .failed(String(describing: error))
             try? await Task.sleep(for: .seconds(3))

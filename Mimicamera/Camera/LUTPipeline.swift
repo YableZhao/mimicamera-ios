@@ -24,6 +24,9 @@ final class LUTPipeline: NSObject {
     /// Short name displayed in the top bar chip.
     var activeStyleName: String?
 
+    /// One-sentence description of the current style (from Claude curation or the manifest).
+    var activeStyleDescription: String?
+
     /// The current CIImage being rendered. `CameraView` observes this via MTKView / SwiftUI.
     var latestCIImage: CIImage?
 
@@ -125,26 +128,31 @@ final class LUTPipeline: NSObject {
     // MARK: - LUT updates
 
     /// Replace the active LUT with a fitted cube returned by `mimicamera-api`.
-    func applyFittedCube(cubeText: String, styleName: String?) throws {
+    func applyFittedCube(cubeText: String, styleName: String?, styleDescription: String? = nil) throws {
         let (size, data) = try CubeLUT.parse(text: cubeText)
         currentSize = size
         fittedCubeData = data
         identityCubeData = CubeLUT.identityData(size: size)
         activeStyleName = styleName
+        activeStyleDescription = styleDescription
         rebuildBlendedFilter()
     }
 
     /// Load a `.cube` file shipped inside the app bundle (e.g. one of the
     /// curated looks under `Resources/CuratedLUTs/`). The cube's TITLE line
     /// becomes the style chip label when `styleName` is not overridden.
-    func loadBundledLUT(named name: String, subdirectory: String = "CuratedLUTs") throws {
+    func loadBundledLUT(
+        named name: String,
+        subdirectory: String = "CuratedLUTs",
+        styleDescription: String? = nil
+    ) throws {
         guard let url = Bundle.main.url(forResource: name, withExtension: "cube", subdirectory: subdirectory)
                 ?? Bundle.main.url(forResource: name, withExtension: "cube") else {
             throw CubeLUTError.parseFailure(line: 0)
         }
         let text = try String(contentsOf: url, encoding: .utf8)
         let title = CubeLUT.title(in: text) ?? name
-        try applyFittedCube(cubeText: text, styleName: title)
+        try applyFittedCube(cubeText: text, styleName: title, styleDescription: styleDescription)
     }
 
     /// Clear the LUT and fall back to identity (pass-through) rendering.

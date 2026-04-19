@@ -13,6 +13,8 @@ struct ContentView: View {
     @State private var settings = SettingsStore()
     @State private var isEditingBackendURL = false
     @State private var backendHealth: BackendHealth = .unknown
+    @State private var isPastingURL = false
+    @State private var pastedURL: String = ""
 
     enum BackendHealth: Equatable {
         case unknown, reachable, unreachable
@@ -73,6 +75,12 @@ struct ContentView: View {
                 }
                 ShutterRow(
                     onPickReference: { isPickingReference = true },
+                    onPasteURL: {
+                        if let clip = UIPasteboard.general.string, clip.lowercased().hasPrefix("http") {
+                            pastedURL = clip
+                        }
+                        isPastingURL = true
+                    },
                     onShutter: { Task { await handleShutter() } }
                 )
             }
@@ -113,6 +121,20 @@ struct ContentView: View {
         .sheet(isPresented: $isEditingBackendURL) {
             BackendURLEditor(settings: settings)
                 .presentationDetents([.fraction(0.32)])
+        }
+        .alert("Paste image URL", isPresented: $isPastingURL) {
+            TextField("https://…", text: $pastedURL)
+                .keyboardType(.URL)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+            Button("Cancel", role: .cancel) { pastedURL = "" }
+            Button("Fit") {
+                let url = pastedURL
+                pastedURL = ""
+                Task { await fetchAndFit(urlString: url) }
+            }
+        } message: {
+            Text("Paste a direct image URL — any photographer's portfolio shot works. For Instagram, open the post in the browser and long-press the image to copy its URL.")
         }
         .onShake { isEditingBackendURL = true }
     }
@@ -191,6 +213,18 @@ struct ContentView: View {
             backendHealth = ((response as? HTTPURLResponse)?.statusCode == 200) ? .reachable : .unreachable
         } catch {
             backendHealth = .unreachable
+        }
+    }
+
+    private func fetchAndFit(urlString: String) async {
+        fitStatus = .fitting
+        do {
+            let jpeg = try await URLReferenceFetcher.fetchJPEG(from: urlString)
+            await curateAndFit(references: [jpeg])
+        } catch {
+            fitStatus = .failed(error.localizedDescription)
+            try? await Task.sleep(for: .seconds(3))
+            fitStatus = .idle
         }
     }
 
@@ -303,18 +337,23 @@ private struct IntensitySlider: View {
 
 private struct ShutterRow: View {
     let onPickReference: () -> Void
+    let onPasteURL: () -> Void
     let onShutter: () -> Void
 
     var body: some View {
         HStack {
-            Button(action: onPickReference) {
+            Menu {
+                Button("From Photos", systemImage: "photo.on.rectangle.angled", action: onPickReference)
+                Button("Paste URL", systemImage: "link", action: onPasteURL)
+            } label: {
                 Image(systemName: "photo.on.rectangle.angled")
                     .font(.system(size: 24, weight: .regular))
                     .foregroundStyle(.white.opacity(0.85))
                     .frame(width: 48, height: 48)
                     .background(.black.opacity(0.35), in: Circle())
+            } primaryAction: {
+                onPickReference()
             }
-            .buttonStyle(.plain)
             Spacer()
             Button(action: onShutter) {
                 Circle()

@@ -30,10 +30,44 @@ final class LUTPipeline: NSObject {
     // MARK: - Session lifecycle
 
     func start() async {
+        #if targetEnvironment(simulator)
+        // The simulator has no camera. Keep the pipeline idle so the UI can
+        // be exercised without triggering the iOS camera-permission prompt.
+        loadSimulatorTestImage()
+        #else
         guard await requestCameraPermission() else { return }
         configureSession()
         captureSession.startRunning()
+        #endif
     }
+
+    #if targetEnvironment(simulator)
+    /// Generates a broad-spectrum gradient CIImage and pushes it through the
+    /// LUT so the simulator can show colour transforms without a real camera.
+    private func loadSimulatorTestImage() {
+        let size = CGSize(width: 1170, height: 2532)  // iPhone 17 Pro-like
+        guard let gradient = makeSpectrumGradient(size: size) else { return }
+        renderStatic(image: gradient)
+    }
+
+    private func makeSpectrumGradient(size: CGSize) -> CIImage? {
+        let hueGradient = CIFilter(name: "CISmoothLinearGradient")
+        hueGradient?.setValue(CIVector(x: 0, y: 0), forKey: "inputPoint0")
+        hueGradient?.setValue(CIVector(x: size.width, y: size.height), forKey: "inputPoint1")
+        hueGradient?.setValue(CIColor(red: 0.95, green: 0.45, blue: 0.25), forKey: "inputColor0")
+        hueGradient?.setValue(CIColor(red: 0.15, green: 0.35, blue: 0.65), forKey: "inputColor1")
+        return hueGradient?.outputImage?.cropped(to: CGRect(origin: .zero, size: size))
+    }
+
+    private func renderStatic(image: CIImage) {
+        var out = image
+        if let filter = currentFilter {
+            filter.setValue(image, forKey: kCIInputImageKey)
+            if let processed = filter.outputImage { out = processed }
+        }
+        latestCIImage = out
+    }
+    #endif
 
     func stop() {
         captureSession.stopRunning()
@@ -126,6 +160,14 @@ final class LUTPipeline: NSObject {
         filter.setValue(currentSize, forKey: "inputCubeDimension")
         filter.setValue(blended, forKey: "inputCubeData")
         currentFilter = filter
+
+        #if targetEnvironment(simulator)
+        // Re-render the static test image whenever the LUT changes so the
+        // simulator preview updates visibly with intensity / style swaps.
+        if let existing = latestCIImage, let gradient = makeSpectrumGradient(size: existing.extent.size) {
+            renderStatic(image: gradient)
+        }
+        #endif
     }
 }
 
@@ -138,7 +180,9 @@ extension LUTPipeline: AVCaptureVideoDataOutputSampleBufferDelegate {
         from connection: AVCaptureConnection
     ) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-        var image = CIImage(cvPixelBuffer: pixelBuffer)
+        // Back camera delivers landscape-right orientation; rotate to portrait
+        // here rather than in the view so CameraView only renders upright images.
+        var image = CIImage(cvPixelBuffer: pixelBuffer).oriented(.right)
         Task { @MainActor [weak self] in
             guard let self else { return }
             if let filter = self.currentFilter {

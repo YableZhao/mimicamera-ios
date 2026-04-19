@@ -59,16 +59,22 @@ struct CameraView: UIViewRepresentable {
                 let context = context
             else { return }
 
-            let bounds = CGRect(origin: .zero, size: view.drawableSize)
-            let scaled = image
-                .cropped(to: image.extent)
-                .transformed(by: .init(rotationAngle: -.pi / 2))
+            let drawableSize = view.drawableSize
+            let imageExtent = image.extent
+            // Aspect-fill the incoming (already upright) image into the drawable.
+            let scaleX = drawableSize.width / imageExtent.width
+            let scaleY = drawableSize.height / imageExtent.height
+            let scale = max(scaleX, scaleY)
+            let scaled = image.transformed(by: .init(scaleX: scale, y: scale))
+            let offsetX = (drawableSize.width - scaled.extent.width) / 2
+            let offsetY = (drawableSize.height - scaled.extent.height) / 2
+            let centered = scaled.transformed(by: .init(translationX: offsetX, y: offsetY))
 
             context.render(
-                scaled,
+                centered,
                 to: drawable.texture,
                 commandBuffer: commandBuffer,
-                bounds: bounds,
+                bounds: CGRect(origin: .zero, size: drawableSize),
                 colorSpace: CGColorSpaceCreateDeviceRGB()
             )
             commandBuffer.present(drawable)

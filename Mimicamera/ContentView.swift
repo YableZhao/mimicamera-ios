@@ -4,6 +4,19 @@ struct ContentView: View {
     @State private var pipeline = LUTPipeline()
     @State private var isComparingOriginal = false
     @State private var intensityBeforeCompare: Float = 1.0
+    @State private var isPickingReference = false
+    @State private var fitStatus: FitStatus = .idle
+
+    private let apiBase: URL = URL(string: "http://127.0.0.1:8000")!
+    private var client: MimicameraClient {
+        MimicameraClient(baseURL: apiBase)
+    }
+
+    enum FitStatus: Equatable {
+        case idle
+        case fitting
+        case failed(String)
+    }
 
     var body: some View {
         ZStack {
@@ -20,10 +33,11 @@ struct ContentView: View {
                 TopBar(
                     styleName: pipeline.activeStyleName,
                     intensity: pipeline.intensity,
-                    comparing: isComparingOriginal
+                    comparing: isComparingOriginal,
+                    status: fitStatus
                 )
                 Spacer()
-                if pipeline.activeStyleName != nil {
+                if pipeline.activeStyleName != nil && fitStatus == .idle {
                     IntensitySlider(value: Binding(
                         get: { Double(pipeline.intensity) },
                         set: { pipeline.intensity = Float($0) }
@@ -31,7 +45,7 @@ struct ContentView: View {
                     .padding(.bottom, 20)
                     .transition(.opacity)
                 }
-                ShutterRow()
+                ShutterRow(onPickReference: { isPickingReference = true })
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 24)
@@ -39,6 +53,14 @@ struct ContentView: View {
         .task {
             try? pipeline.loadBundledLUT(named: "demo-warm")
             await pipeline.start()
+        }
+        .sheet(isPresented: $isPickingReference) {
+            ReferencePicker(selectionLimit: 1) { datas in
+                isPickingReference = false
+                guard let first = datas.first else { return }
+                Task { await fitAndApply(reference: first) }
+            }
+            .ignoresSafeArea()
         }
     }
 
@@ -52,22 +74,36 @@ struct ContentView: View {
             isComparingOriginal = false
         }
     }
+
+    private func fitAndApply(reference: Data) async {
+        fitStatus = .fitting
+        do {
+            let result = try await client.fitLUT(references: [reference])
+            try pipeline.applyFittedCube(cubeText: result.cubeText, styleName: result.styleName)
+            fitStatus = .idle
+        } catch {
+            fitStatus = .failed(String(describing: error))
+            try? await Task.sleep(for: .seconds(3))
+            fitStatus = .idle
+        }
+    }
 }
 
 private struct TopBar: View {
     let styleName: String?
     let intensity: Float
     let comparing: Bool
+    let status: ContentView.FitStatus
 
     var body: some View {
         HStack(spacing: 10) {
             Circle()
                 .fill(.red)
                 .frame(width: 8, height: 8)
-            Text(comparing ? "Original" : (styleName ?? "Pick a look"))
+            Text(label)
                 .font(.system(.footnote, design: .monospaced))
                 .foregroundStyle(.white.opacity(0.92))
-            if styleName != nil && !comparing {
+            if styleName != nil && !comparing && status == .idle {
                 Text("\(Int(intensity * 100))%")
                     .font(.system(.caption2, design: .monospaced))
                     .foregroundStyle(.white.opacity(0.55))
@@ -77,6 +113,15 @@ private struct TopBar: View {
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
         .background(.black.opacity(0.35), in: .capsule)
+    }
+
+    private var label: String {
+        if comparing { return "Original" }
+        switch status {
+        case .fitting: return "Fitting colours…"
+        case .failed(let msg): return "Fit failed: \(msg.prefix(40))…"
+        case .idle: return styleName ?? "Pick a look"
+        }
     }
 }
 
@@ -101,8 +146,18 @@ private struct IntensitySlider: View {
 }
 
 private struct ShutterRow: View {
+    let onPickReference: () -> Void
+
     var body: some View {
         HStack {
+            Button(action: onPickReference) {
+                Image(systemName: "photo.on.rectangle.angled")
+                    .font(.system(size: 24, weight: .regular))
+                    .foregroundStyle(.white.opacity(0.85))
+                    .frame(width: 48, height: 48)
+                    .background(.black.opacity(0.35), in: Circle())
+            }
+            .buttonStyle(.plain)
             Spacer()
             Button(action: {}) {
                 Circle()
@@ -116,6 +171,7 @@ private struct ShutterRow: View {
             }
             .buttonStyle(.plain)
             Spacer()
+            Color.clear.frame(width: 48, height: 48)
         }
     }
 }

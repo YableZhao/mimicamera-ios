@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var backendHealth: BackendHealth = .unknown
     @State private var isPastingURL = false
     @State private var pastedURL: String = ""
+    @State private var isShowingUnsplash = false
 
     enum BackendHealth: Equatable {
         case unknown, reachable, unreachable
@@ -81,6 +82,7 @@ struct ContentView: View {
                         }
                         isPastingURL = true
                     },
+                    onSearchUnsplash: { isShowingUnsplash = true },
                     onShutter: { Task { await handleShutter() } }
                 )
             }
@@ -121,6 +123,11 @@ struct ContentView: View {
         .sheet(isPresented: $isEditingBackendURL) {
             BackendURLEditor(settings: settings)
                 .presentationDetents([.fraction(0.32)])
+        }
+        .sheet(isPresented: $isShowingUnsplash) {
+            UnsplashSearchSheet(client: client) { photo in
+                Task { await fetchAndFit(urlString: photo.fullURL) }
+            }
         }
         .alert("Paste image URL", isPresented: $isPastingURL) {
             TextField("https://…", text: $pastedURL)
@@ -338,12 +345,14 @@ private struct IntensitySlider: View {
 private struct ShutterRow: View {
     let onPickReference: () -> Void
     let onPasteURL: () -> Void
+    let onSearchUnsplash: () -> Void
     let onShutter: () -> Void
 
     var body: some View {
         HStack {
             Menu {
                 Button("From Photos", systemImage: "photo.on.rectangle.angled", action: onPickReference)
+                Button("Search Unsplash", systemImage: "magnifyingglass", action: onSearchUnsplash)
                 Button("Paste URL", systemImage: "link", action: onPasteURL)
             } label: {
                 Image(systemName: "photo.on.rectangle.angled")

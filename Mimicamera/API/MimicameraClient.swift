@@ -30,6 +30,34 @@ struct CurateResponse: Decodable {
     }
 }
 
+struct UnsplashPhoto: Decodable, Identifiable, Hashable {
+    let id: String
+    let description: String?
+    let thumbnailURL: String
+    let fullURL: String
+    let downloadURL: String
+    let photographerName: String
+    let photographerUsername: String?
+    let profileURL: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case description
+        case thumbnailURL = "thumbnail_url"
+        case fullURL = "full_url"
+        case downloadURL = "download_url"
+        case photographerName = "photographer_name"
+        case photographerUsername = "photographer_username"
+        case profileURL = "profile_url"
+    }
+}
+
+struct UnsplashSearchResponse: Decodable {
+    let query: String
+    let results: [UnsplashPhoto]
+    let keyed: Bool
+}
+
 enum MimicameraClientError: Error {
     case badStatus(code: Int, body: String)
     case decodingFailed(Error)
@@ -103,6 +131,29 @@ actor MimicameraClient {
             styleDescription: decoded.styleDescription,
             timingMs: decoded.timingMs
         )
+    }
+
+    /// Search Unsplash through the backend proxy. The server holds the Unsplash
+    /// access key; unset → the backend returns a deterministic demo payload so
+    /// the flow is drivable without credentials.
+    func searchUnsplash(query: String, perPage: Int = 12) async throws -> UnsplashSearchResponse {
+        var comps = URLComponents(url: baseURL.appendingPathComponent("unsplash/search"), resolvingAgainstBaseURL: false)!
+        comps.queryItems = [
+            URLQueryItem(name: "q", value: query),
+            URLQueryItem(name: "per_page", value: String(perPage)),
+        ]
+        guard let url = comps.url else { throw MimicameraClientError.badStatus(code: -1, body: "bad URL") }
+
+        let (data, response) = try await session.data(from: url)
+        guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+            let code = (response as? HTTPURLResponse)?.statusCode ?? -1
+            throw MimicameraClientError.badStatus(code: code, body: String(data: data, encoding: .utf8) ?? "<binary>")
+        }
+        do {
+            return try JSONDecoder().decode(UnsplashSearchResponse.self, from: data)
+        } catch {
+            throw MimicameraClientError.decodingFailed(error)
+        }
     }
 
     /// Fits a LUT from one or more reference JPEGs. Default mode is IDT; pass `.hist`

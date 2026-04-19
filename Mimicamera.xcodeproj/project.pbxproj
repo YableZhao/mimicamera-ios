@@ -15,6 +15,7 @@
 		32B2E474E77FCB6C6CA67DA3 /* ReferenceStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C3288BFA2C2AC85DD2D70 /* ReferenceStrip.swift */; };
 		373529569551F4EBD6AFEFA0 /* CubeLUTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0E28D8732A7B3B44F45656 /* CubeLUTTests.swift */; };
 		4E3046565949DCE395DD2769 /* MimicameraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */; };
+		6F8C3B69949991EC2D2B9C97 /* UnsplashSearchSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3174527B4A1236C566D1C32C /* UnsplashSearchSheet.swift */; };
 		80B796DFEA15D7137274A204 /* MimicameraClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9489D6013835D1BDC295B74D /* MimicameraClient.swift */; };
 		8B24AEE470655E063FEA8B2E /* film.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DF0E078F3AFBEFE549719A10 /* film.jpg */; };
 		918807E9C110FC5D1D38170A /* noir.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1211B1DCE73286E806B5ABDB /* noir.jpg */; };
@@ -55,6 +56,7 @@
 		227157EC475089C6137053D8 /* Mimicamera.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Mimicamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24AB87A34A6691EB3147C676 /* portrait.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = portrait.jpg; sourceTree = "<group>"; };
 		28F1918486D77C03C0486F48 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		3174527B4A1236C566D1C32C /* UnsplashSearchSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashSearchSheet.swift; sourceTree = "<group>"; };
 		33CFB3059246CD17E3DF10E8 /* URLReferenceFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLReferenceFetcher.swift; sourceTree = "<group>"; };
 		345FE1F933FCF9F4671FDE36 /* ReferencePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferencePicker.swift; sourceTree = "<group>"; };
 		432017891FE327CFFE492594 /* golden-hour.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "golden-hour.jpg"; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				E11E35E2ADBC784620911FC0 /* CuratedLooks.swift */,
 				345FE1F933FCF9F4671FDE36 /* ReferencePicker.swift */,
 				CA9C3288BFA2C2AC85DD2D70 /* ReferenceStrip.swift */,
+				3174527B4A1236C566D1C32C /* UnsplashSearchSheet.swift */,
 				33CFB3059246CD17E3DF10E8 /* URLReferenceFetcher.swift */,
 			);
 			path = Reference;
@@ -320,6 +323,7 @@
 				B03492FDEF80C6BF908744BD /* SettingsStore.swift in Sources */,
 				B53B2FFCDEDF5330D7E8D84A /* ShakeDetector.swift in Sources */,
 				A0AE182FCB4834C27A7B5262 /* URLReferenceFetcher.swift in Sources */,
+				6F8C3B69949991EC2D2B9C97 /* UnsplashSearchSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

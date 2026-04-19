@@ -8,6 +8,13 @@ struct MimicameraApp: App {
                 .preferredColorScheme(.dark)
                 .statusBarHidden()
                 .persistentSystemOverlays(.hidden)
+                .onOpenURL { url in
+                    guard url.scheme == "mimicamera", url.host == "fit" else { return }
+                    NotificationCenter.default.post(
+                        name: SharedContainer.sharedImageReadyNotification,
+                        object: nil
+                    )
+                }
         }
     }
 }

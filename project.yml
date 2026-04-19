@@ -23,15 +23,38 @@ targets:
         excludes:
           - "**/*.md"
           - "Info.plist"
+          - "**/*.entitlements"
+    dependencies:
+      - target: MimicameraShareExtension
     settings:
       base:
         PRODUCT_NAME: Mimicamera
         PRODUCT_BUNDLE_IDENTIFIER: com.yablezhao.mimicamera
         INFOPLIST_FILE: Mimicamera/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Mimicamera/Mimicamera.entitlements
         TARGETED_DEVICE_FAMILY: "1"
         CODE_SIGN_STYLE: Automatic
         ENABLE_USER_SCRIPT_SANDBOXING: NO
         GENERATE_INFOPLIST_FILE: NO
+
+  MimicameraShareExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: MimicameraShareExtension
+        excludes:
+          - "**/*.entitlements"
+          - "Info.plist"
+      - path: Mimicamera/SharedContainer.swift
+    settings:
+      base:
+        PRODUCT_NAME: MimicameraShareExtension
+        PRODUCT_BUNDLE_IDENTIFIER: com.yablezhao.mimicamera.share
+        INFOPLIST_FILE: MimicameraShareExtension/Info.plist
+        CODE_SIGN_ENTITLEMENTS: MimicameraShareExtension/MimicameraShareExtension.entitlements
+        CODE_SIGN_STYLE: Automatic
+        GENERATE_INFOPLIST_FILE: NO
+        SKIP_INSTALL: YES
 
   MimicameraTests:
     type: bundle.unit-test

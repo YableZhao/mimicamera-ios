@@ -144,6 +144,10 @@ struct ContentView: View {
             Text("Paste a direct image URL — any photographer's portfolio shot works. For Instagram, open the post in the browser and long-press the image to copy its URL.")
         }
         .onShake { isEditingBackendURL = true }
+        .onReceive(NotificationCenter.default.publisher(for: SharedContainer.sharedImageReadyNotification)) { _ in
+            handleSharedImage()
+        }
+        .onAppear { handleSharedImage() }
     }
 
     private func handleCompareGesture(isPressing: Bool) {
@@ -221,6 +225,12 @@ struct ContentView: View {
         } catch {
             backendHealth = .unreachable
         }
+    }
+
+    private func handleSharedImage() {
+        guard let data = SharedContainer.readPendingReference() else { return }
+        SharedContainer.clearPendingReference()
+        Task { await curateAndFit(references: [data]) }
     }
 
     private func fetchAndFit(urlString: String) async {

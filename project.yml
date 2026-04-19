@@ -1,0 +1,34 @@
+name: Mimicamera
+
+options:
+  bundleIdPrefix: com.yablezhao
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+  developmentLanguage: en
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  Mimicamera:
+    type: application
+    platform: iOS
+    sources:
+      - path: Mimicamera
+        excludes:
+          - "**/*.md"
+          - "Info.plist"
+    settings:
+      base:
+        PRODUCT_NAME: Mimicamera
+        PRODUCT_BUNDLE_IDENTIFIER: com.yablezhao.mimicamera
+        INFOPLIST_FILE: Mimicamera/Info.plist
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        GENERATE_INFOPLIST_FILE: NO

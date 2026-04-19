@@ -47,3 +47,9 @@ AuthKey_*.p8
 .vscode/
 .idea/
 *.swp
+
+# XcodeGen
+xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+

@@ -1,39 +1,50 @@
-# Setting up the Xcode project
+# Setting up and running Mimicamera
 
-The Swift sources under `Mimicamera/` are ready to drop into a fresh Xcode project. Follow these steps once Xcode is installed.
+The Xcode project is generated from `project.yml` via [XcodeGen](https://github.com/yonaskolb/XcodeGen). You do not need to create a project manually — open the generated `Mimicamera.xcodeproj` and press ⌘R.
 
-## 1. Create the Xcode project
+## First-time setup
 
-1. Open Xcode → **File → New → Project…**
-2. Choose **iOS → App** → Next.
-3. Product Name: `Mimicamera`
-   Organization Identifier: `com.yablezhao` (or your own)
-   Interface: **SwiftUI**
-   Language: **Swift**
-   Storage: **None** (no Core Data)
-   **Uncheck** "Include Tests" (add them later if needed)
-4. When prompted for the location, pick this repository's root (`mimicamera-ios/`). Xcode will create a nested `Mimicamera/` directory — **delete** the nested `Mimicamera/Mimicamera/` folder Xcode just generated (it will include a boilerplate `MimicameraApp.swift` and `ContentView.swift` that conflict with ours).
-5. In Xcode's project navigator: **right-click → Add Files to "Mimicamera"…** and select `Mimicamera/` (this repo's hand-written source tree). Uncheck "Copy items if needed"; select the **Mimicamera target**; choose "Create groups".
+```bash
+brew install xcodegen           # one-time, if you do not have it
+cd mimicamera-ios
+xcodegen generate               # (re)creates Mimicamera.xcodeproj from project.yml
+open Mimicamera.xcodeproj       # opens in Xcode
+```
 
-## 2. Project settings
+## Build and run
 
-In the project settings:
+From the command line (headless):
 
-- **General** tab, Deployment Info:
-  - iOS Deployment Target: **17.0**
-  - Device Orientation: **Portrait** only
-  - Status Bar Style: **Dark Content** (or Hidden — it is hidden in code)
-- **Info** tab: replace the auto-generated Info values with the entries from our `Mimicamera/Info.plist` (or add `NSCameraUsageDescription`, `NSPhotoLibraryUsageDescription`, `NSPhotoLibraryAddUsageDescription` manually).
-- **Signing & Capabilities**: use your free Apple ID for personal team signing. No paid developer program required.
+```bash
+xcodebuild \
+  -project Mimicamera.xcodeproj \
+  -scheme Mimicamera \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+  -configuration Debug \
+  build
+```
 
-## 3. First build
+Or in Xcode: pick a simulator destination (iPhone 17 Pro is recommended) and hit ⌘R.
 
-- Choose a simulator (e.g. iPhone 15 Pro) or a connected device.
-- Build and run. The camera preview will be black in the simulator (no camera); on a device, you will see the live feed.
+The simulator will not show a live camera feed (simulator has no camera). You will see the dark-mode UI chrome — the style chip at the top and the shutter button at the bottom. On a physical iPhone you will see the live feed behind them.
 
-## 4. Hooking up the backend
+## Install and launch on a booted simulator
 
-The `MimicameraClient` in `Mimicamera/API/MimicameraClient.swift` expects a running `mimicamera-api`. During development, run the backend locally:
+```bash
+xcrun simctl boot "iPhone 17 Pro"               # if not already booted
+open -a Simulator                                # brings Simulator app to front
+
+xcodebuild ... build                             # as above
+
+APP=$(find ~/Library/Developer/Xcode/DerivedData -name Mimicamera.app -path '*iphonesimulator*' | head -1)
+xcrun simctl install booted "$APP"
+xcrun simctl privacy booted grant camera com.yablezhao.mimicamera
+xcrun simctl launch booted com.yablezhao.mimicamera
+```
+
+## Hooking up the backend
+
+The `MimicameraClient` in `Mimicamera/API/MimicameraClient.swift` expects a running `mimicamera-api`. Run the backend locally:
 
 ```bash
 cd ../mimicamera-api
@@ -43,28 +54,33 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 Point the iOS app at `http://<your-mac-ip>:8000` when testing on a physical device. For the simulator, `http://127.0.0.1:8000` works.
 
-## Source tree overview
+## Source tree
 
 ```
-Mimicamera/
-  MimicameraApp.swift       App entry point (SwiftUI @main)
-  ContentView.swift         Root view — camera + top bar + shutter row
-  Info.plist                Permissions + orientation + dark mode
-  Camera/
-    CubeLUT.swift           .cube parser + CIColorCube builder + LUT blend
-    LUTPipeline.swift       AVCaptureSession + CoreImage + state
-    CameraView.swift        MTKView-backed Metal preview surface
-  API/
-    MimicameraClient.swift  URLSession client for /fit_lut
+mimicamera-ios/
+  project.yml                   XcodeGen configuration — the source of truth
+  Mimicamera.xcodeproj/         Generated; commit for CI convenience
+  Mimicamera/
+    MimicameraApp.swift         SwiftUI @main entry
+    ContentView.swift           Camera surface + top chip + shutter row
+    Info.plist                  Permissions + orientation + dark mode
+    Camera/
+      CubeLUT.swift             .cube parser + CIColorCube builder + blend
+      LUTPipeline.swift         AVCaptureSession + CoreImage + state
+      CameraView.swift          MTKView-backed Metal preview
+    API/
+      MimicameraClient.swift    URLSession client for /fit_lut
+    Resources/
+      CuratedLUTs/
+        demo-warm.cube          Baked offline for D2 testing
+        demo-cool.cube
 ```
 
-## Known deferred work
+## Deferred work (per the plan)
 
-These are intentionally not in the initial scaffold:
+- `Reference/ReferenceStrip.swift` — bottom thumbnail picker (D5)
+- `Reference/ReferencePicker.swift` — PhotoKit multi-select (D5)
+- `Capture/ShutterButton.swift` + `CaptureWriter.swift` — dual save (D6)
+- More curated `.cube` files — six real photographer looks (D9)
 
-- `Reference/ReferenceStrip.swift` — bottom thumbnail picker (D5).
-- `Reference/ReferencePicker.swift` — PhotoKit multi-select (D5).
-- `Capture/ShutterButton.swift` + `CaptureWriter.swift` — dual save original + styled (D6).
-- `Resources/CuratedLUTs/*.cube` — six baked photographer looks (D9).
-
-See the plan file (`~/.claude/plans/interview-process-founding-ios-agile-cocoa.md`) for the full 2-week schedule.
+Full plan: `~/.claude/plans/interview-process-founding-ios-agile-cocoa.md`.

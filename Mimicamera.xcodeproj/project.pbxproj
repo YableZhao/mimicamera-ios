@@ -1,0 +1,366 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00E6698720D582C2FF748547 /* demo-warm.cube in Resources */ = {isa = PBXBuildFile; fileRef = A4636928BA6D3DE390289E09 /* demo-warm.cube */; };
+		4E3046565949DCE395DD2769 /* MimicameraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */; };
+		80B796DFEA15D7137274A204 /* MimicameraClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9489D6013835D1BDC295B74D /* MimicameraClient.swift */; };
+		8E0298B55A6F949CBFC4786D /* demo-cool.cube in Resources */ = {isa = PBXBuildFile; fileRef = CA025815EF36831134D276DD /* demo-cool.cube */; };
+		B3E36DF479C20267840F6152 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6A0AC933970C94289B726D /* CameraView.swift */; };
+		CF42687D6FAC9ED9359777F7 /* LUTPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F3E08D70E23EA02E57F23 /* LUTPipeline.swift */; };
+		D835333DA8E7FA55C0D1F800 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89094EF65A12DE479F411FE6 /* ContentView.swift */; };
+		FF0D2D97C21E8F0B064D97F7 /* CubeLUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CB84865F9533A29CB6C8F6 /* CubeLUT.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		04CB84865F9533A29CB6C8F6 /* CubeLUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeLUT.swift; sourceTree = "<group>"; };
+		227157EC475089C6137053D8 /* Mimicamera.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Mimicamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		819F3E08D70E23EA02E57F23 /* LUTPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LUTPipeline.swift; sourceTree = "<group>"; };
+		89094EF65A12DE479F411FE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9489D6013835D1BDC295B74D /* MimicameraClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimicameraClient.swift; sourceTree = "<group>"; };
+		A4636928BA6D3DE390289E09 /* demo-warm.cube */ = {isa = PBXFileReference; path = "demo-warm.cube"; sourceTree = "<group>"; };
+		A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimicameraApp.swift; sourceTree = "<group>"; };
+		CA025815EF36831134D276DD /* demo-cool.cube */ = {isa = PBXFileReference; path = "demo-cool.cube"; sourceTree = "<group>"; };
+		FD6A0AC933970C94289B726D /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		2DBEFEDFDE1D7A5A821EC8E9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				227157EC475089C6137053D8 /* Mimicamera.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4916F71B5F966D970E9F7E8B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FFF9E84FD987E527C8795E37 /* CuratedLUTs */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		5439D4E762C50826A3ED40FA /* Mimicamera */ = {
+			isa = PBXGroup;
+			children = (
+				CAAA44673794D1E2D7339954 /* API */,
+				862A5E5E00EB71B92EA3FF0E /* Camera */,
+				4916F71B5F966D970E9F7E8B /* Resources */,
+				89094EF65A12DE479F411FE6 /* ContentView.swift */,
+				A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */,
+			);
+			path = Mimicamera;
+			sourceTree = "<group>";
+		};
+		862A5E5E00EB71B92EA3FF0E /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				FD6A0AC933970C94289B726D /* CameraView.swift */,
+				04CB84865F9533A29CB6C8F6 /* CubeLUT.swift */,
+				819F3E08D70E23EA02E57F23 /* LUTPipeline.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		CAAA44673794D1E2D7339954 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				9489D6013835D1BDC295B74D /* MimicameraClient.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		D169E70318F522EE1951FB6C = {
+			isa = PBXGroup;
+			children = (
+				5439D4E762C50826A3ED40FA /* Mimicamera */,
+				2DBEFEDFDE1D7A5A821EC8E9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FFF9E84FD987E527C8795E37 /* CuratedLUTs */ = {
+			isa = PBXGroup;
+			children = (
+				CA025815EF36831134D276DD /* demo-cool.cube */,
+				A4636928BA6D3DE390289E09 /* demo-warm.cube */,
+			);
+			path = CuratedLUTs;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F18D65C3A60E9AEB869F247D /* Mimicamera */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A8B3F2156B1B84DA9CAECC7 /* Build configuration list for PBXNativeTarget "Mimicamera" */;
+			buildPhases = (
+				F655C48F5A63FBFC2AED4A15 /* Sources */,
+				585E9E168C47CE8A63EBF244 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mimicamera;
+			packageProductDependencies = (
+			);
+			productName = Mimicamera;
+			productReference = 227157EC475089C6137053D8 /* Mimicamera.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EBD4F27BF1DE11B051F4B715 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					F18D65C3A60E9AEB869F247D = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 63C61F3A61898FB506EBDD99 /* Build configuration list for PBXProject "Mimicamera" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = D169E70318F522EE1951FB6C;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 2DBEFEDFDE1D7A5A821EC8E9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F18D65C3A60E9AEB869F247D /* Mimicamera */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		585E9E168C47CE8A63EBF244 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E0298B55A6F949CBFC4786D /* demo-cool.cube in Resources */,
+				00E6698720D582C2FF748547 /* demo-warm.cube in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F655C48F5A63FBFC2AED4A15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3E36DF479C20267840F6152 /* CameraView.swift in Sources */,
+				D835333DA8E7FA55C0D1F800 /* ContentView.swift in Sources */,
+				FF0D2D97C21E8F0B064D97F7 /* CubeLUT.swift in Sources */,
+				CF42687D6FAC9ED9359777F7 /* LUTPipeline.swift in Sources */,
+				4E3046565949DCE395DD2769 /* MimicameraApp.swift in Sources */,
+				80B796DFEA15D7137274A204 /* MimicameraClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		53E006E8B7DC2BB91A0BC118 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		5A1D4097F7FFC51B6C136508 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Mimicamera/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yablezhao.mimicamera;
+				PRODUCT_NAME = Mimicamera;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		AEAFA3EE55C3CB994B3FA74F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Mimicamera/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yablezhao.mimicamera;
+				PRODUCT_NAME = Mimicamera;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		D6146907F86CC5056AE78C8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		63C61F3A61898FB506EBDD99 /* Build configuration list for PBXProject "Mimicamera" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6146907F86CC5056AE78C8E /* Debug */,
+				53E006E8B7DC2BB91A0BC118 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6A8B3F2156B1B84DA9CAECC7 /* Build configuration list for PBXNativeTarget "Mimicamera" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A1D4097F7FFC51B6C136508 /* Debug */,
+				AEAFA3EE55C3CB994B3FA74F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EBD4F27BF1DE11B051F4B715 /* Project object */;
+}

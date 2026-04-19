@@ -27,6 +27,9 @@ final class LUTPipeline: NSObject {
     /// The current CIImage being rendered. `CameraView` observes this via MTKView / SwiftUI.
     var latestCIImage: CIImage?
 
+    /// The most recent unstyled (pre-LUT) frame. Used for dual-capture.
+    var latestOriginalImage: CIImage?
+
     // MARK: - Session lifecycle
 
     func start() async {
@@ -65,6 +68,7 @@ final class LUTPipeline: NSObject {
             filter.setValue(image, forKey: kCIInputImageKey)
             if let processed = filter.outputImage { out = processed }
         }
+        latestOriginalImage = image
         latestCIImage = out
     }
     #endif
@@ -182,14 +186,16 @@ extension LUTPipeline: AVCaptureVideoDataOutputSampleBufferDelegate {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         // Back camera delivers landscape-right orientation; rotate to portrait
         // here rather than in the view so CameraView only renders upright images.
-        var image = CIImage(cvPixelBuffer: pixelBuffer).oriented(.right)
+        let original = CIImage(cvPixelBuffer: pixelBuffer).oriented(.right)
+        var styled = original
         Task { @MainActor [weak self] in
             guard let self else { return }
             if let filter = self.currentFilter {
-                filter.setValue(image, forKey: kCIInputImageKey)
-                if let out = filter.outputImage { image = out }
+                filter.setValue(original, forKey: kCIInputImageKey)
+                if let out = filter.outputImage { styled = out }
             }
-            self.latestCIImage = image
+            self.latestOriginalImage = original
+            self.latestCIImage = styled
         }
     }
 }

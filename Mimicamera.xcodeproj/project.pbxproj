@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E6698720D582C2FF748547 /* demo-warm.cube in Resources */ = {isa = PBXBuildFile; fileRef = A4636928BA6D3DE390289E09 /* demo-warm.cube */; };
+		17F99F08AC9AA27192CA5859 /* CaptureWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA268BE9CC36C44691EEE33B /* CaptureWriter.swift */; };
 		1DBB9F3B05AFA73653B85FED /* ReferencePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345FE1F933FCF9F4671FDE36 /* ReferencePicker.swift */; };
 		4E3046565949DCE395DD2769 /* MimicameraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */; };
 		80B796DFEA15D7137274A204 /* MimicameraClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9489D6013835D1BDC295B74D /* MimicameraClient.swift */; };
@@ -27,6 +28,7 @@
 		9489D6013835D1BDC295B74D /* MimicameraClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimicameraClient.swift; sourceTree = "<group>"; };
 		A4636928BA6D3DE390289E09 /* demo-warm.cube */ = {isa = PBXFileReference; path = "demo-warm.cube"; sourceTree = "<group>"; };
 		A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimicameraApp.swift; sourceTree = "<group>"; };
+		AA268BE9CC36C44691EEE33B /* CaptureWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureWriter.swift; sourceTree = "<group>"; };
 		CA025815EF36831134D276DD /* demo-cool.cube */ = {isa = PBXFileReference; path = "demo-cool.cube"; sourceTree = "<group>"; };
 		FD6A0AC933970C94289B726D /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -53,6 +55,7 @@
 			children = (
 				CAAA44673794D1E2D7339954 /* API */,
 				862A5E5E00EB71B92EA3FF0E /* Camera */,
+				EE090CE04D20F2D814280843 /* Capture */,
 				F6BD4BC5E5CC15209EED91A7 /* Reference */,
 				4916F71B5F966D970E9F7E8B /* Resources */,
 				89094EF65A12DE479F411FE6 /* ContentView.swift */,
@@ -85,6 +88,14 @@
 				5439D4E762C50826A3ED40FA /* Mimicamera */,
 				2DBEFEDFDE1D7A5A821EC8E9 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		EE090CE04D20F2D814280843 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+				AA268BE9CC36C44691EEE33B /* CaptureWriter.swift */,
+			);
+			path = Capture;
 			sourceTree = "<group>";
 		};
 		F6BD4BC5E5CC15209EED91A7 /* Reference */ = {
@@ -176,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3E36DF479C20267840F6152 /* CameraView.swift in Sources */,
+				17F99F08AC9AA27192CA5859 /* CaptureWriter.swift in Sources */,
 				D835333DA8E7FA55C0D1F800 /* ContentView.swift in Sources */,
 				FF0D2D97C21E8F0B064D97F7 /* CubeLUT.swift in Sources */,
 				CF42687D6FAC9ED9359777F7 /* LUTPipeline.swift in Sources */,

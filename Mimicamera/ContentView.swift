@@ -6,8 +6,11 @@ struct ContentView: View {
     @State private var intensityBeforeCompare: Float = 1.0
     @State private var isPickingReference = false
     @State private var fitStatus: FitStatus = .idle
+    @State private var isFlashing = false
+    @State private var captureToast: String?
 
     private let apiBase: URL = URL(string: "http://127.0.0.1:8000")!
+    private let captureWriter = CaptureWriter()
     private var client: MimicameraClient {
         MimicameraClient(baseURL: apiBase)
     }
@@ -45,10 +48,24 @@ struct ContentView: View {
                     .padding(.bottom, 20)
                     .transition(.opacity)
                 }
-                ShutterRow(onPickReference: { isPickingReference = true })
+                ShutterRow(
+                    onPickReference: { isPickingReference = true },
+                    onShutter: { Task { await handleShutter() } }
+                )
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 24)
+
+            if let toast = captureToast {
+                ToastBanner(text: toast)
+                    .transition(.opacity)
+            }
+
+            Color.white
+                .ignoresSafeArea()
+                .opacity(isFlashing ? 0.6 : 0)
+                .animation(.easeOut(duration: 0.12), value: isFlashing)
+                .allowsHitTesting(false)
         }
         .task {
             try? pipeline.loadBundledLUT(named: "demo-warm")
@@ -73,6 +90,32 @@ struct ContentView: View {
             pipeline.intensity = intensityBeforeCompare
             isComparingOriginal = false
         }
+    }
+
+    private func handleShutter() async {
+        guard let original = pipeline.latestOriginalImage,
+              let styled = pipeline.latestCIImage else { return }
+        await flash()
+        do {
+            try await captureWriter.saveDualCapture(original: original, styled: styled)
+            await showToast("Saved original + styled to Photos")
+        } catch {
+            await showToast("Save failed: \(error)")
+        }
+    }
+
+    @MainActor
+    private func flash() async {
+        isFlashing = true
+        try? await Task.sleep(for: .milliseconds(130))
+        isFlashing = false
+    }
+
+    @MainActor
+    private func showToast(_ text: String) async {
+        captureToast = text
+        try? await Task.sleep(for: .seconds(2))
+        captureToast = nil
     }
 
     private func fitAndApply(reference: Data) async {
@@ -147,6 +190,7 @@ private struct IntensitySlider: View {
 
 private struct ShutterRow: View {
     let onPickReference: () -> Void
+    let onShutter: () -> Void
 
     var body: some View {
         HStack {
@@ -159,7 +203,7 @@ private struct ShutterRow: View {
             }
             .buttonStyle(.plain)
             Spacer()
-            Button(action: {}) {
+            Button(action: onShutter) {
                 Circle()
                     .strokeBorder(.white, lineWidth: 3)
                     .frame(width: 72, height: 72)
@@ -173,5 +217,23 @@ private struct ShutterRow: View {
             Spacer()
             Color.clear.frame(width: 48, height: 48)
         }
+    }
+}
+
+private struct ToastBanner: View {
+    let text: String
+
+    var body: some View {
+        VStack {
+            Spacer()
+            Text(text)
+                .font(.system(.footnote, design: .monospaced))
+                .foregroundStyle(.white)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 10)
+                .background(.black.opacity(0.6), in: .capsule)
+                .padding(.bottom, 140)
+        }
+        .allowsHitTesting(false)
     }
 }

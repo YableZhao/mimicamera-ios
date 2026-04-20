@@ -6,14 +6,14 @@
       "description": "Warm highlights, honey mids, cocoa shadows"
     },
     {
-      "id": "overcast",
-      "name": "Overcast",
-      "description": "Cool highlights, desaturated mids, slate shadows"
+      "id": "teal-orange",
+      "name": "Teal & Orange",
+      "description": "Cinematic \u2014 blue shadows, amber highlights"
     },
     {
       "id": "noir",
       "name": "Noir",
-      "description": "Crushed blacks, low contrast, whisper of blue"
+      "description": "Crushed blacks, high contrast, barely any colour"
     },
     {
       "id": "pastel",
@@ -23,12 +23,12 @@
     {
       "id": "film",
       "name": "Film",
-      "description": "Faded cyan shadows, warm highlights, teal-orange"
+      "description": "Faded cyan shadows, warm highlights, low-contrast"
     },
     {
-      "id": "portrait",
-      "name": "Portrait",
-      "description": "Skin-tone forward, clean highlights, green shadows"
+      "id": "bleach-bypass",
+      "name": "Bleach Bypass",
+      "description": "Silver-screen \u2014 desaturated, punchy, slight cyan cast"
     }
   ]
 }

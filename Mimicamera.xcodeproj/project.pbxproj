@@ -7,23 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		022A3DD0127F90CAF19DD3B0 /* portrait.cube in Resources */ = {isa = PBXBuildFile; fileRef = F11336D02EB26860E82987BA /* portrait.cube */; };
+		04CBB6C3EF0D6D620F9CE4BE /* teal-orange.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 08A5175216148363BA6CAE2E /* teal-orange.jpg */; };
 		1650192073817CBB9AE4AF01 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F050904FE863545608EF4B8E /* SharedContainer.swift */; };
 		17F99F08AC9AA27192CA5859 /* CaptureWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA268BE9CC36C44691EEE33B /* CaptureWriter.swift */; };
 		1DBB9F3B05AFA73653B85FED /* ReferencePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345FE1F933FCF9F4671FDE36 /* ReferencePicker.swift */; };
+		1F47B134C19AFB5BD71BA26E /* teal-orange.cube in Resources */ = {isa = PBXBuildFile; fileRef = 4AE0E8E02F90921519D3E0DE /* teal-orange.cube */; };
 		2FB4B87265053B4AABFBCEFB /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBFBFFCEA87B2EB05B83D9E /* Haptics.swift */; };
 		3074A05F17934739691F07EB /* CuratedLooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11E35E2ADBC784620911FC0 /* CuratedLooks.swift */; };
 		32B2E474E77FCB6C6CA67DA3 /* ReferenceStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C3288BFA2C2AC85DD2D70 /* ReferenceStrip.swift */; };
 		373529569551F4EBD6AFEFA0 /* CubeLUTTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0E28D8732A7B3B44F45656 /* CubeLUTTests.swift */; };
+		3A548D93D3EC6D3828261FB0 /* bleach-bypass.cube in Resources */ = {isa = PBXBuildFile; fileRef = 7548E5DFF438A538E8D9840F /* bleach-bypass.cube */; };
 		4E3046565949DCE395DD2769 /* MimicameraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */; };
 		6F8C3B69949991EC2D2B9C97 /* UnsplashSearchSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3174527B4A1236C566D1C32C /* UnsplashSearchSheet.swift */; };
 		7EFCA189E5B06439B63178B8 /* SharedContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F050904FE863545608EF4B8E /* SharedContainer.swift */; };
 		80B796DFEA15D7137274A204 /* MimicameraClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9489D6013835D1BDC295B74D /* MimicameraClient.swift */; };
 		8B24AEE470655E063FEA8B2E /* film.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DF0E078F3AFBEFE549719A10 /* film.jpg */; };
+		8B551C19165F66AE71368A00 /* bleach-bypass.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5A2651B5FE572CCC63284907 /* bleach-bypass.jpg */; };
 		8F4E585ABD6D82CADECDE129 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD47969ED44903AD3FBBD292 /* ShareViewController.swift */; };
 		918807E9C110FC5D1D38170A /* noir.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1211B1DCE73286E806B5ABDB /* noir.jpg */; };
 		9B303ED1654AD22DF9E4AB91 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = CA956DFC94B51213F1E41BEC /* manifest.json */; };
-		A0A7430238D62738F8877213 /* overcast.cube in Resources */ = {isa = PBXBuildFile; fileRef = BC65B1B80DB718FEEBD77398 /* overcast.cube */; };
 		A0AE182FCB4834C27A7B5262 /* URLReferenceFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33CFB3059246CD17E3DF10E8 /* URLReferenceFetcher.swift */; };
 		A1D97EF9993CB864084FB209 /* golden-hour.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 432017891FE327CFFE492594 /* golden-hour.jpg */; };
 		A6F3A6AEA4B130F4344CF9C0 /* golden-hour.cube in Resources */ = {isa = PBXBuildFile; fileRef = 14791145A7ACE85D8A824AED /* golden-hour.cube */; };
@@ -36,8 +38,6 @@
 		CF42687D6FAC9ED9359777F7 /* LUTPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F3E08D70E23EA02E57F23 /* LUTPipeline.swift */; };
 		CFB80028AFC0BFE26DCA3859 /* MimicameraShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D25BE9C8CDDB0628E4D54AD5 /* MimicameraShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D835333DA8E7FA55C0D1F800 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89094EF65A12DE479F411FE6 /* ContentView.swift */; };
-		DA27F926A623DE77F370D07B /* portrait.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 24AB87A34A6691EB3147C676 /* portrait.jpg */; };
-		E2877DC875CF9BE056218495 /* overcast.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5FBC2DCED413F5F38C64E06F /* overcast.jpg */; };
 		E643A74DD59D3B1BDBF7C2CA /* film.cube in Resources */ = {isa = PBXBuildFile; fileRef = 957BA1630AD1E4ADBBD12249 /* film.cube */; };
 		FF0D2D97C21E8F0B064D97F7 /* CubeLUT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CB84865F9533A29CB6C8F6 /* CubeLUT.swift */; };
 /* End PBXBuildFile section */
@@ -75,18 +75,20 @@
 
 /* Begin PBXFileReference section */
 		04CB84865F9533A29CB6C8F6 /* CubeLUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeLUT.swift; sourceTree = "<group>"; };
+		08A5175216148363BA6CAE2E /* teal-orange.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "teal-orange.jpg"; sourceTree = "<group>"; };
 		1211B1DCE73286E806B5ABDB /* noir.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noir.jpg; sourceTree = "<group>"; };
 		14791145A7ACE85D8A824AED /* golden-hour.cube */ = {isa = PBXFileReference; path = "golden-hour.cube"; sourceTree = "<group>"; };
 		1B0E28D8732A7B3B44F45656 /* CubeLUTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeLUTTests.swift; sourceTree = "<group>"; };
 		227157EC475089C6137053D8 /* Mimicamera.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Mimicamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		24AB87A34A6691EB3147C676 /* portrait.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = portrait.jpg; sourceTree = "<group>"; };
 		28F1918486D77C03C0486F48 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		3174527B4A1236C566D1C32C /* UnsplashSearchSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashSearchSheet.swift; sourceTree = "<group>"; };
 		33CFB3059246CD17E3DF10E8 /* URLReferenceFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLReferenceFetcher.swift; sourceTree = "<group>"; };
 		345FE1F933FCF9F4671FDE36 /* ReferencePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferencePicker.swift; sourceTree = "<group>"; };
 		432017891FE327CFFE492594 /* golden-hour.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "golden-hour.jpg"; sourceTree = "<group>"; };
-		5FBC2DCED413F5F38C64E06F /* overcast.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = overcast.jpg; sourceTree = "<group>"; };
+		4AE0E8E02F90921519D3E0DE /* teal-orange.cube */ = {isa = PBXFileReference; path = "teal-orange.cube"; sourceTree = "<group>"; };
+		5A2651B5FE572CCC63284907 /* bleach-bypass.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bleach-bypass.jpg"; sourceTree = "<group>"; };
 		651D4513790BAAE46D955123 /* pastel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pastel.jpg; sourceTree = "<group>"; };
+		7548E5DFF438A538E8D9840F /* bleach-bypass.cube */ = {isa = PBXFileReference; path = "bleach-bypass.cube"; sourceTree = "<group>"; };
 		819F3E08D70E23EA02E57F23 /* LUTPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LUTPipeline.swift; sourceTree = "<group>"; };
 		85294E4D58E94F61E63E4CD5 /* MimicameraTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MimicameraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		89094EF65A12DE479F411FE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -96,7 +98,6 @@
 		AA268BE9CC36C44691EEE33B /* CaptureWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureWriter.swift; sourceTree = "<group>"; };
 		ABBFBFFCEA87B2EB05B83D9E /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		AD47969ED44903AD3FBBD292 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		BC65B1B80DB718FEEBD77398 /* overcast.cube */ = {isa = PBXFileReference; path = overcast.cube; sourceTree = "<group>"; };
 		C102B9712FD73A462F24CF28 /* noir.cube */ = {isa = PBXFileReference; path = noir.cube; sourceTree = "<group>"; };
 		CA956DFC94B51213F1E41BEC /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
 		CA9C3288BFA2C2AC85DD2D70 /* ReferenceStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceStrip.swift; sourceTree = "<group>"; };
@@ -105,7 +106,6 @@
 		DF0E078F3AFBEFE549719A10 /* film.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = film.jpg; sourceTree = "<group>"; };
 		E11E35E2ADBC784620911FC0 /* CuratedLooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuratedLooks.swift; sourceTree = "<group>"; };
 		F050904FE863545608EF4B8E /* SharedContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContainer.swift; sourceTree = "<group>"; };
-		F11336D02EB26860E82987BA /* portrait.cube */ = {isa = PBXFileReference; path = portrait.cube; sourceTree = "<group>"; };
 		F6BB93903C7EA90A7300237A /* pastel.cube */ = {isa = PBXFileReference; path = pastel.cube; sourceTree = "<group>"; };
 		FD6A0AC933970C94289B726D /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -222,6 +222,8 @@
 		FFF9E84FD987E527C8795E37 /* CuratedLUTs */ = {
 			isa = PBXGroup;
 			children = (
+				7548E5DFF438A538E8D9840F /* bleach-bypass.cube */,
+				5A2651B5FE572CCC63284907 /* bleach-bypass.jpg */,
 				957BA1630AD1E4ADBBD12249 /* film.cube */,
 				DF0E078F3AFBEFE549719A10 /* film.jpg */,
 				14791145A7ACE85D8A824AED /* golden-hour.cube */,
@@ -229,12 +231,10 @@
 				CA956DFC94B51213F1E41BEC /* manifest.json */,
 				C102B9712FD73A462F24CF28 /* noir.cube */,
 				1211B1DCE73286E806B5ABDB /* noir.jpg */,
-				BC65B1B80DB718FEEBD77398 /* overcast.cube */,
-				5FBC2DCED413F5F38C64E06F /* overcast.jpg */,
 				F6BB93903C7EA90A7300237A /* pastel.cube */,
 				651D4513790BAAE46D955123 /* pastel.jpg */,
-				F11336D02EB26860E82987BA /* portrait.cube */,
-				24AB87A34A6691EB3147C676 /* portrait.jpg */,
+				4AE0E8E02F90921519D3E0DE /* teal-orange.cube */,
+				08A5175216148363BA6CAE2E /* teal-orange.jpg */,
 			);
 			path = CuratedLUTs;
 			sourceTree = "<group>";
@@ -340,6 +340,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A548D93D3EC6D3828261FB0 /* bleach-bypass.cube in Resources */,
+				8B551C19165F66AE71368A00 /* bleach-bypass.jpg in Resources */,
 				E643A74DD59D3B1BDBF7C2CA /* film.cube in Resources */,
 				8B24AEE470655E063FEA8B2E /* film.jpg in Resources */,
 				A6F3A6AEA4B130F4344CF9C0 /* golden-hour.cube in Resources */,
@@ -347,12 +349,10 @@
 				9B303ED1654AD22DF9E4AB91 /* manifest.json in Resources */,
 				CEC87ACC326EFF77C46DD63C /* noir.cube in Resources */,
 				918807E9C110FC5D1D38170A /* noir.jpg in Resources */,
-				A0A7430238D62738F8877213 /* overcast.cube in Resources */,
-				E2877DC875CF9BE056218495 /* overcast.jpg in Resources */,
 				AB649BEF741C4DF12AF3417E /* pastel.cube in Resources */,
 				B70550D9CABD285912E6BB01 /* pastel.jpg in Resources */,
-				022A3DD0127F90CAF19DD3B0 /* portrait.cube in Resources */,
-				DA27F926A623DE77F370D07B /* portrait.jpg in Resources */,
+				1F47B134C19AFB5BD71BA26E /* teal-orange.cube in Resources */,
+				04CBB6C3EF0D6D620F9CE4BE /* teal-orange.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

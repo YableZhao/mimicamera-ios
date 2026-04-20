@@ -10,7 +10,9 @@ import UIKit
 /// Photos.
 struct EditorView: View {
     let source: UIImage
+    var assetLocalIdentifier: String? = nil
     @Environment(StyleStore.self) private var style
+    @Environment(RecentEditsStore.self) private var recents
     @Environment(\.dismiss) private var dismiss
 
     @State private var applier: StyleApplier?
@@ -239,6 +241,13 @@ struct EditorView: View {
             try await writer.saveDualCapture(original: originalCI, styled: styledCI)
             Haptics.success()
             showToast("Saved original + styled to Photos", duration: 2.5)
+            if let assetLocalIdentifier {
+                recents.record(
+                    assetLocalIdentifier: assetLocalIdentifier,
+                    styleName: style.activeStyleName,
+                    styleCuratedID: selectedLookID
+                )
+            }
         } catch {
             Haptics.error()
             showToast("Save failed: \(error)", duration: 3)

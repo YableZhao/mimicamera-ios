@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ContentView: View {
+struct CameraTabView: View {
     @Environment(StyleStore.self) private var style
     @State private var pipeline: LUTPipeline?
     @State private var isComparingOriginal = false
@@ -63,7 +63,7 @@ struct ContentView: View {
                     .padding(.top, 6)
                 }
                 Spacer()
-                if style.activeStyleName != nil && fitStatus == ContentView.FitStatus.idle {
+                if style.activeStyleName != nil && fitStatus == CameraTabView.FitStatus.idle {
                     IntensitySlider(value: Binding(
                         get: { Double(style.intensity) },
                         set: { style.intensity = Float($0) }
@@ -300,7 +300,7 @@ private struct TopBar: View {
     let styleName: String?
     let intensity: Float
     let comparing: Bool
-    let status: ContentView.FitStatus
+    let status: CameraTabView.FitStatus
 
     var body: some View {
         HStack(spacing: 10) {

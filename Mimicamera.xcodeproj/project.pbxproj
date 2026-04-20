@@ -13,6 +13,7 @@
 		1DBB9F3B05AFA73653B85FED /* ReferencePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345FE1F933FCF9F4671FDE36 /* ReferencePicker.swift */; };
 		1F47B134C19AFB5BD71BA26E /* teal-orange.cube in Resources */ = {isa = PBXBuildFile; fileRef = 4AE0E8E02F90921519D3E0DE /* teal-orange.cube */; };
 		2656F3E8659B5051C17E8AD9 /* CameraTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8EAE9C42D8E6C15E3B0C5D6 /* CameraTabView.swift */; };
+		28A315EB984AE697055EA0D5 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7BD3A64FEBBF13CEB3CA99 /* EditorView.swift */; };
 		2FB4B87265053B4AABFBCEFB /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABBFBFFCEA87B2EB05B83D9E /* Haptics.swift */; };
 		3074A05F17934739691F07EB /* CuratedLooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11E35E2ADBC784620911FC0 /* CuratedLooks.swift */; };
 		32B2E474E77FCB6C6CA67DA3 /* ReferenceStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9C3288BFA2C2AC85DD2D70 /* ReferenceStrip.swift */; };
@@ -37,6 +38,7 @@
 		B3E36DF479C20267840F6152 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6A0AC933970C94289B726D /* CameraView.swift */; };
 		B53B2FFCDEDF5330D7E8D84A /* ShakeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF570BBAD6B4A8C428E77EF /* ShakeDetector.swift */; };
 		B70550D9CABD285912E6BB01 /* pastel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 651D4513790BAAE46D955123 /* pastel.jpg */; };
+		C0DD4C0CDC56FC045C004D77 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23BE15EBB6DE70B161F5BCCD /* LibraryView.swift */; };
 		CEC87ACC326EFF77C46DD63C /* noir.cube in Resources */ = {isa = PBXBuildFile; fileRef = C102B9712FD73A462F24CF28 /* noir.cube */; };
 		CF42687D6FAC9ED9359777F7 /* LUTPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F3E08D70E23EA02E57F23 /* LUTPipeline.swift */; };
 		CFB80028AFC0BFE26DCA3859 /* MimicameraShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D25BE9C8CDDB0628E4D54AD5 /* MimicameraShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -80,39 +82,41 @@
 		04CB84865F9533A29CB6C8F6 /* CubeLUT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeLUT.swift; sourceTree = "<group>"; };
 		08A5175216148363BA6CAE2E /* teal-orange.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "teal-orange.jpg"; sourceTree = "<group>"; };
 		1211B1DCE73286E806B5ABDB /* noir.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noir.jpg; sourceTree = "<group>"; };
-		14791145A7ACE85D8A824AED /* golden-hour.cube */ = {isa = PBXFileReference; path = "golden-hour.cube"; sourceTree = "<group>"; };
+		14791145A7ACE85D8A824AED /* golden-hour.cube */ = {isa = PBXFileReference; lastKnownFileType = text; path = "golden-hour.cube"; sourceTree = "<group>"; };
 		1B0E28D8732A7B3B44F45656 /* CubeLUTTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeLUTTests.swift; sourceTree = "<group>"; };
-		227157EC475089C6137053D8 /* Mimicamera.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Mimicamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		227157EC475089C6137053D8 /* Mimicamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mimicamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		23BE15EBB6DE70B161F5BCCD /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		28F1918486D77C03C0486F48 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
 		3174527B4A1236C566D1C32C /* UnsplashSearchSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashSearchSheet.swift; sourceTree = "<group>"; };
 		33CFB3059246CD17E3DF10E8 /* URLReferenceFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLReferenceFetcher.swift; sourceTree = "<group>"; };
 		345FE1F933FCF9F4671FDE36 /* ReferencePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferencePicker.swift; sourceTree = "<group>"; };
 		432017891FE327CFFE492594 /* golden-hour.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "golden-hour.jpg"; sourceTree = "<group>"; };
-		4AE0E8E02F90921519D3E0DE /* teal-orange.cube */ = {isa = PBXFileReference; path = "teal-orange.cube"; sourceTree = "<group>"; };
+		4AE0E8E02F90921519D3E0DE /* teal-orange.cube */ = {isa = PBXFileReference; lastKnownFileType = text; path = "teal-orange.cube"; sourceTree = "<group>"; };
 		5A2651B5FE572CCC63284907 /* bleach-bypass.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bleach-bypass.jpg"; sourceTree = "<group>"; };
 		651D4513790BAAE46D955123 /* pastel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pastel.jpg; sourceTree = "<group>"; };
-		7548E5DFF438A538E8D9840F /* bleach-bypass.cube */ = {isa = PBXFileReference; path = "bleach-bypass.cube"; sourceTree = "<group>"; };
+		7548E5DFF438A538E8D9840F /* bleach-bypass.cube */ = {isa = PBXFileReference; lastKnownFileType = text; path = "bleach-bypass.cube"; sourceTree = "<group>"; };
 		819F3E08D70E23EA02E57F23 /* LUTPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LUTPipeline.swift; sourceTree = "<group>"; };
 		85294E4D58E94F61E63E4CD5 /* MimicameraTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MimicameraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9489D6013835D1BDC295B74D /* MimicameraClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimicameraClient.swift; sourceTree = "<group>"; };
-		957BA1630AD1E4ADBBD12249 /* film.cube */ = {isa = PBXFileReference; path = film.cube; sourceTree = "<group>"; };
+		957BA1630AD1E4ADBBD12249 /* film.cube */ = {isa = PBXFileReference; lastKnownFileType = text; path = film.cube; sourceTree = "<group>"; };
 		967AA10D07AFE4E6CC038B54 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		A52CCF10ABB6E591A015A9BA /* MimicameraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MimicameraApp.swift; sourceTree = "<group>"; };
 		A8EAE9C42D8E6C15E3B0C5D6 /* CameraTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTabView.swift; sourceTree = "<group>"; };
 		AA268BE9CC36C44691EEE33B /* CaptureWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureWriter.swift; sourceTree = "<group>"; };
 		ABBFBFFCEA87B2EB05B83D9E /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		AD47969ED44903AD3FBBD292 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		C102B9712FD73A462F24CF28 /* noir.cube */ = {isa = PBXFileReference; path = noir.cube; sourceTree = "<group>"; };
+		BE7BD3A64FEBBF13CEB3CA99 /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
+		C102B9712FD73A462F24CF28 /* noir.cube */ = {isa = PBXFileReference; lastKnownFileType = text; path = noir.cube; sourceTree = "<group>"; };
 		CA956DFC94B51213F1E41BEC /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
 		CA9C3288BFA2C2AC85DD2D70 /* ReferenceStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceStrip.swift; sourceTree = "<group>"; };
-		D25BE9C8CDDB0628E4D54AD5 /* MimicameraShareExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MimicameraShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D25BE9C8CDDB0628E4D54AD5 /* MimicameraShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MimicameraShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDF570BBAD6B4A8C428E77EF /* ShakeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeDetector.swift; sourceTree = "<group>"; };
 		DF0E078F3AFBEFE549719A10 /* film.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = film.jpg; sourceTree = "<group>"; };
 		E11E35E2ADBC784620911FC0 /* CuratedLooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuratedLooks.swift; sourceTree = "<group>"; };
 		E72A8A00A55ECC8B37CFF378 /* EditorTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTabView.swift; sourceTree = "<group>"; };
 		E7864D0E895316479C911ADB /* StyleStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleStore.swift; sourceTree = "<group>"; };
 		F050904FE863545608EF4B8E /* SharedContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedContainer.swift; sourceTree = "<group>"; };
-		F6BB93903C7EA90A7300237A /* pastel.cube */ = {isa = PBXFileReference; path = pastel.cube; sourceTree = "<group>"; };
+		F6BB93903C7EA90A7300237A /* pastel.cube */ = {isa = PBXFileReference; lastKnownFileType = text; path = pastel.cube; sourceTree = "<group>"; };
 		FD6A0AC933970C94289B726D /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,6 +125,8 @@
 			isa = PBXGroup;
 			children = (
 				E72A8A00A55ECC8B37CFF378 /* EditorTabView.swift */,
+				BE7BD3A64FEBBF13CEB3CA99 /* EditorView.swift */,
+				23BE15EBB6DE70B161F5BCCD /* LibraryView.swift */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -435,8 +441,10 @@
 				FF0D2D97C21E8F0B064D97F7 /* CubeLUT.swift in Sources */,
 				3074A05F17934739691F07EB /* CuratedLooks.swift in Sources */,
 				87FF58F31518D86F7A2EEDC6 /* EditorTabView.swift in Sources */,
+				28A315EB984AE697055EA0D5 /* EditorView.swift in Sources */,
 				2FB4B87265053B4AABFBCEFB /* Haptics.swift in Sources */,
 				CF42687D6FAC9ED9359777F7 /* LUTPipeline.swift in Sources */,
+				C0DD4C0CDC56FC045C004D77 /* LibraryView.swift in Sources */,
 				4E3046565949DCE395DD2769 /* MimicameraApp.swift in Sources */,
 				80B796DFEA15D7137274A204 /* MimicameraClient.swift in Sources */,
 				1DBB9F3B05AFA73653B85FED /* ReferencePicker.swift in Sources */,
@@ -472,6 +480,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MimicameraShareExtension/MimicameraShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ULT67PH3C6;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MimicameraShareExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -569,6 +578,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mimicamera/Mimicamera.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ULT67PH3C6;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Mimicamera/Info.plist;
@@ -607,6 +617,7 @@
 				CODE_SIGN_ENTITLEMENTS = Mimicamera/Mimicamera.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ULT67PH3C6;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Mimicamera/Info.plist;
@@ -626,6 +637,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MimicameraShareExtension/MimicameraShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ULT67PH3C6;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MimicameraShareExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

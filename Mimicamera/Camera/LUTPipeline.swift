@@ -2,9 +2,10 @@ import AVFoundation
 import CoreImage
 import Observation
 
-/// Core camera → CIColorCube → display pipeline. Owns the AVCaptureSession and
-/// the currently-active LUT filter. The live loop is entirely on-device; the
-/// fitted LUT comes from the backend once per reference change.
+/// AVCaptureSession wrapper that produces styled CIImages by applying the
+/// current `StyleStore` filter to each frame. Intentionally owns *only* the
+/// capture mechanics — style state lives in `StyleStore` so the editor tab
+/// and the camera tab can share one source of truth.
 @Observable
 @MainActor
 final class LUTPipeline: NSObject {
@@ -13,19 +14,9 @@ final class LUTPipeline: NSObject {
     private let sampleQueue = DispatchQueue(label: "mimicamera.sample", qos: .userInteractive)
     private let videoOutput = AVCaptureVideoDataOutput()
 
-    private var currentFilter: CIFilter?
-    private var currentSize: Int = 33
-    private var fittedCubeData: Data?
-    private var identityCubeData: Data = CubeLUT.identityData(size: 33)
-
-    /// Intensity α, applied in LUT space. 0 = original, 1 = full style.
-    var intensity: Float = 1.0 { didSet { rebuildBlendedFilter() } }
-
-    /// Short name displayed in the top bar chip.
-    var activeStyleName: String?
-
-    /// One-sentence description of the current style (from Claude curation or the manifest).
-    var activeStyleDescription: String?
+    /// The shared style state. Initialised externally so every surface that
+    /// reads it (camera preview, editor) sees the same bytes.
+    private let style: StyleStore
 
     /// The current CIImage being rendered. `CameraView` observes this via MTKView / SwiftUI.
     var latestCIImage: CIImage?
@@ -33,48 +24,25 @@ final class LUTPipeline: NSObject {
     /// The most recent unstyled (pre-LUT) frame. Used for dual-capture.
     var latestOriginalImage: CIImage?
 
+    init(style: StyleStore) {
+        self.style = style
+        super.init()
+    }
+
     // MARK: - Session lifecycle
 
     func start() async {
         #if targetEnvironment(simulator)
-        // The simulator has no camera. Keep the pipeline idle so the UI can
-        // be exercised without triggering the iOS camera-permission prompt.
-        loadSimulatorTestImage()
+        // The simulator has no camera. Push a synthetic gradient through the
+        // current filter so the UI is driveable end-to-end without hardware.
+        observeStyleForSimulator()
+        renderSimulatorFrame()
         #else
         guard await requestCameraPermission() else { return }
         configureSession()
         captureSession.startRunning()
         #endif
     }
-
-    #if targetEnvironment(simulator)
-    /// Generates a broad-spectrum gradient CIImage and pushes it through the
-    /// LUT so the simulator can show colour transforms without a real camera.
-    private func loadSimulatorTestImage() {
-        let size = CGSize(width: 1170, height: 2532)  // iPhone 17 Pro-like
-        guard let gradient = makeSpectrumGradient(size: size) else { return }
-        renderStatic(image: gradient)
-    }
-
-    private func makeSpectrumGradient(size: CGSize) -> CIImage? {
-        let hueGradient = CIFilter(name: "CISmoothLinearGradient")
-        hueGradient?.setValue(CIVector(x: 0, y: 0), forKey: "inputPoint0")
-        hueGradient?.setValue(CIVector(x: size.width, y: size.height), forKey: "inputPoint1")
-        hueGradient?.setValue(CIColor(red: 0.95, green: 0.45, blue: 0.25), forKey: "inputColor0")
-        hueGradient?.setValue(CIColor(red: 0.15, green: 0.35, blue: 0.65), forKey: "inputColor1")
-        return hueGradient?.outputImage?.cropped(to: CGRect(origin: .zero, size: size))
-    }
-
-    private func renderStatic(image: CIImage) {
-        var out = image
-        if let filter = currentFilter {
-            filter.setValue(image, forKey: kCIInputImageKey)
-            if let processed = filter.outputImage { out = processed }
-        }
-        latestOriginalImage = image
-        latestCIImage = out
-    }
-    #endif
 
     func stop() {
         captureSession.stopRunning()
@@ -125,62 +93,51 @@ final class LUTPipeline: NSObject {
         return device
     }
 
-    // MARK: - LUT updates
+    // MARK: - Simulator path
 
-    /// Replace the active LUT with a fitted cube returned by `mimicamera-api`.
-    func applyFittedCube(cubeText: String, styleName: String?, styleDescription: String? = nil) throws {
-        let (size, data) = try CubeLUT.parse(text: cubeText)
-        currentSize = size
-        fittedCubeData = data
-        identityCubeData = CubeLUT.identityData(size: size)
-        activeStyleName = styleName
-        activeStyleDescription = styleDescription
-        rebuildBlendedFilter()
-    }
+    #if targetEnvironment(simulator)
+    private var simulatorObserverTask: Task<Void, Never>?
 
-    /// Load a `.cube` file shipped inside the app bundle (e.g. one of the
-    /// curated looks under `Resources/CuratedLUTs/`). The cube's TITLE line
-    /// becomes the style chip label when `styleName` is not overridden.
-    func loadBundledLUT(
-        named name: String,
-        subdirectory: String = "CuratedLUTs",
-        styleDescription: String? = nil
-    ) throws {
-        guard let url = Bundle.main.url(forResource: name, withExtension: "cube", subdirectory: subdirectory)
-                ?? Bundle.main.url(forResource: name, withExtension: "cube") else {
-            throw CubeLUTError.parseFailure(line: 0)
+    /// Re-render the simulator gradient whenever the shared style changes
+    /// (swap look, drag intensity) so the preview visibly reacts.
+    private func observeStyleForSimulator() {
+        simulatorObserverTask?.cancel()
+        simulatorObserverTask = Task { @MainActor [weak self] in
+            // Poll the observable — a light-touch way to wake on any change
+            // without adding Combine plumbing.
+            var lastSignature: String = ""
+            while !Task.isCancelled {
+                let sig = "\(self?.style.blendedCubeData?.count ?? 0)|\(self?.style.intensity ?? 0)"
+                if sig != lastSignature {
+                    self?.renderSimulatorFrame()
+                    lastSignature = sig
+                }
+                try? await Task.sleep(nanoseconds: 120_000_000)
+            }
         }
-        let text = try String(contentsOf: url, encoding: .utf8)
-        let title = CubeLUT.title(in: text) ?? name
-        try applyFittedCube(cubeText: text, styleName: title, styleDescription: styleDescription)
     }
 
-    /// Clear the LUT and fall back to identity (pass-through) rendering.
-    func clearLUT() {
-        fittedCubeData = nil
-        currentFilter = nil
-        activeStyleName = nil
-    }
-
-    private func rebuildBlendedFilter() {
-        guard let fitted = fittedCubeData else {
-            currentFilter = nil
-            return
+    private func renderSimulatorFrame() {
+        let size = CGSize(width: 1170, height: 2532)
+        guard let gradient = makeSpectrumGradient(size: size) else { return }
+        var out = gradient
+        if let filter = style.currentFilter {
+            filter.setValue(gradient, forKey: kCIInputImageKey)
+            if let processed = filter.outputImage { out = processed }
         }
-        let blended = CubeLUT.blend(identity: identityCubeData, fitted: fitted, alpha: intensity)
-        let filter = CIFilter(name: "CIColorCube")!
-        filter.setValue(currentSize, forKey: "inputCubeDimension")
-        filter.setValue(blended, forKey: "inputCubeData")
-        currentFilter = filter
-
-        #if targetEnvironment(simulator)
-        // Re-render the static test image whenever the LUT changes so the
-        // simulator preview updates visibly with intensity / style swaps.
-        if let existing = latestCIImage, let gradient = makeSpectrumGradient(size: existing.extent.size) {
-            renderStatic(image: gradient)
-        }
-        #endif
+        latestOriginalImage = gradient
+        latestCIImage = out
     }
+
+    private func makeSpectrumGradient(size: CGSize) -> CIImage? {
+        let hueGradient = CIFilter(name: "CISmoothLinearGradient")
+        hueGradient?.setValue(CIVector(x: 0, y: 0), forKey: "inputPoint0")
+        hueGradient?.setValue(CIVector(x: size.width, y: size.height), forKey: "inputPoint1")
+        hueGradient?.setValue(CIColor(red: 0.95, green: 0.45, blue: 0.25), forKey: "inputColor0")
+        hueGradient?.setValue(CIColor(red: 0.15, green: 0.35, blue: 0.65), forKey: "inputColor1")
+        return hueGradient?.outputImage?.cropped(to: CGRect(origin: .zero, size: size))
+    }
+    #endif
 }
 
 // MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
@@ -198,7 +155,7 @@ extension LUTPipeline: AVCaptureVideoDataOutputSampleBufferDelegate {
         var styled = original
         Task { @MainActor [weak self] in
             guard let self else { return }
-            if let filter = self.currentFilter {
+            if let filter = self.style.currentFilter {
                 filter.setValue(original, forKey: kCIInputImageKey)
                 if let out = filter.outputImage { styled = out }
             }

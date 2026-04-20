@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var pipeline = LUTPipeline()
+    @Environment(StyleStore.self) private var style
+    @State private var pipeline: LUTPipeline?
     @State private var isComparingOriginal = false
     @State private var intensityBeforeCompare: Float = 1.0
     @State private var isPickingReference = false
@@ -35,19 +36,23 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
-            CameraView(pipeline: pipeline)
-                .ignoresSafeArea()
-                .onLongPressGesture(
-                    minimumDuration: 0.15,
-                    maximumDistance: 40,
-                    perform: {},
-                    onPressingChanged: handleCompareGesture
-                )
+            if let pipeline {
+                CameraView(pipeline: pipeline)
+                    .ignoresSafeArea()
+                    .onLongPressGesture(
+                        minimumDuration: 0.15,
+                        maximumDistance: 40,
+                        perform: {},
+                        onPressingChanged: handleCompareGesture
+                    )
+            } else {
+                Color.black.ignoresSafeArea()
+            }
 
             VStack {
                 TopBar(
-                    styleName: pipeline.activeStyleName,
-                    intensity: pipeline.intensity,
+                    styleName: style.activeStyleName,
+                    intensity: style.intensity,
                     comparing: isComparingOriginal,
                     status: fitStatus
                 )
@@ -58,10 +63,10 @@ struct ContentView: View {
                     .padding(.top, 6)
                 }
                 Spacer()
-                if pipeline.activeStyleName != nil && fitStatus == ContentView.FitStatus.idle {
+                if style.activeStyleName != nil && fitStatus == ContentView.FitStatus.idle {
                     IntensitySlider(value: Binding(
-                        get: { Double(pipeline.intensity) },
-                        set: { pipeline.intensity = Float($0) }
+                        get: { Double(style.intensity) },
+                        set: { style.intensity = Float($0) }
                     ))
                     .padding(.bottom, 12)
                     .transition(.opacity)
@@ -101,12 +106,15 @@ struct ContentView: View {
                 .allowsHitTesting(false)
         }
         .task {
+            if pipeline == nil {
+                pipeline = LUTPipeline(style: style)
+            }
             curatedLooks = CuratedLooks.load()
-            if let first = curatedLooks.first {
-                try? pipeline.loadBundledLUT(named: first.id, styleDescription: first.description)
+            if style.activeStyleName == nil, let first = curatedLooks.first {
+                try? style.loadBundledLUT(named: first.id, description: first.description)
                 selectedLookID = first.id
             }
-            await pipeline.start()
+            await pipeline?.start()
             await pingBackend()
         }
         .onChange(of: settings.apiBase) { _, _ in
@@ -152,18 +160,18 @@ struct ContentView: View {
 
     private func handleCompareGesture(isPressing: Bool) {
         if isPressing && !isComparingOriginal {
-            intensityBeforeCompare = pipeline.intensity
-            pipeline.intensity = 0
+            intensityBeforeCompare = style.intensity
+            style.intensity = 0
             isComparingOriginal = true
         } else if !isPressing && isComparingOriginal {
-            pipeline.intensity = intensityBeforeCompare
+            style.intensity = intensityBeforeCompare
             isComparingOriginal = false
         }
     }
 
     private func selectCuratedLook(_ look: CuratedLook) {
         do {
-            try pipeline.loadBundledLUT(named: look.id, styleDescription: look.description)
+            try style.loadBundledLUT(named: look.id, description: look.description)
             selectedLookID = look.id
             Haptics.lightImpact()
             Task { await showToast(look.description, duration: 2.2) }
@@ -177,8 +185,8 @@ struct ContentView: View {
     }
 
     private func handleShutter() async {
-        guard let original = pipeline.latestOriginalImage,
-              let styled = pipeline.latestCIImage else { return }
+        guard let original = pipeline?.latestOriginalImage,
+              let styled = pipeline?.latestCIImage else { return }
         Haptics.rigidImpact()
         await flash()
         do {
@@ -269,10 +277,10 @@ struct ContentView: View {
             let result = try await client.fitLUT(references: subset)
             selectedLookID = nil  // user-supplied look, not a bundled one
             let description = references.count > 1 ? curatedDescription : result.styleDescription
-            try pipeline.applyFittedCube(
-                cubeText: result.cubeText,
-                styleName: curatedName ?? (references.count > 1 ? "Your Style" : result.styleName),
-                styleDescription: description
+            try style.applyFittedCube(
+                text: result.cubeText,
+                name: curatedName ?? (references.count > 1 ? "Your Style" : result.styleName),
+                description: description
             )
             fitStatus = .idle
             if let desc = description, !desc.isEmpty {

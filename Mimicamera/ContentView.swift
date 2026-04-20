@@ -359,20 +359,9 @@ private struct ShutterRow: View {
     let onShutter: () -> Void
 
     var body: some View {
-        HStack {
-            Menu {
-                Button("From Photos", systemImage: "photo.on.rectangle.angled", action: onPickReference)
-                Button("Search Unsplash", systemImage: "magnifyingglass", action: onSearchUnsplash)
-                Button("Paste URL", systemImage: "link", action: onPasteURL)
-            } label: {
-                Image(systemName: "photo.on.rectangle.angled")
-                    .font(.system(size: 24, weight: .regular))
-                    .foregroundStyle(.white.opacity(0.85))
-                    .frame(width: 48, height: 48)
-                    .background(.black.opacity(0.35), in: Circle())
-            } primaryAction: {
-                onPickReference()
-            }
+        HStack(spacing: 12) {
+            RoundIconButton(systemName: "photo.on.rectangle.angled", action: onPickReference)
+            RoundIconButton(systemName: "magnifyingglass", action: onSearchUnsplash)
             Spacer()
             Button(action: onShutter) {
                 Circle()
@@ -386,8 +375,25 @@ private struct ShutterRow: View {
             }
             .buttonStyle(.plain)
             Spacer()
-            Color.clear.frame(width: 48, height: 48)
+            RoundIconButton(systemName: "link", action: onPasteURL)
+            Color.clear.frame(width: 0, height: 48)
         }
+    }
+}
+
+private struct RoundIconButton: View {
+    let systemName: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: systemName)
+                .font(.system(size: 20, weight: .regular))
+                .foregroundStyle(.white.opacity(0.85))
+                .frame(width: 44, height: 44)
+                .background(.black.opacity(0.4), in: Circle())
+        }
+        .buttonStyle(.plain)
     }
 }
 

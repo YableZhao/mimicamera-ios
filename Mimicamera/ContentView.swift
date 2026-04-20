@@ -239,7 +239,9 @@ struct ContentView: View {
             let jpeg = try await URLReferenceFetcher.fetchJPEG(from: urlString)
             await curateAndFit(references: [jpeg])
         } catch {
-            fitStatus = .failed(error.localizedDescription)
+            let msg = error.localizedDescription
+            fitStatus = .failed(msg)
+            await showToast("Couldn't fetch URL: \(msg)", duration: 4.5)
             try? await Task.sleep(for: .seconds(3))
             fitStatus = .idle
         }
@@ -277,7 +279,9 @@ struct ContentView: View {
                 Task { await showToast(desc, duration: 3.0) }
             }
         } catch {
-            fitStatus = .failed(String(describing: error))
+            let msg = String(describing: error)
+            fitStatus = .failed(msg)
+            await showToast("Fit failed: \(msg.prefix(200))", duration: 5.0)
             try? await Task.sleep(for: .seconds(3))
             fitStatus = .idle
         }
